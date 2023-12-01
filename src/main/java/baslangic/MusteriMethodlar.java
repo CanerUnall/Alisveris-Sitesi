@@ -92,16 +92,29 @@ public class MusteriMethodlar {
 
     }
 
-    void siteBakiyesiIleOde(){
-
+    void siteBakiyesiIleOde(double bakiye, double tutar ){
+        if (bakiye >= tutar){
+            bakiye -= tutar;
+            System.out.println("Site Bakiyesinden : " + tutar + "tutarında ödeme yapılmıştır. Kalan Bakiye: " + bakiye);
+        }else {
+            System.out.println("Yetersiz Bakiye. Ödeme yapılamadı.");
+        }
         //Cemal Bey
     }
 
-    void bankaKartiIleOde(){
+    void bankaKartiIleOde(String kartNo, String sonKullanmaTarihi, String cvv, double tutar){
+        if (kartNo == null || kartNo.isEmpty() || kartNo == null || kartNo.isEmpty() || cvv == null || cvv.isEmpty()) {
+            System.out.println("Hata: Geçersiz veya eksik parametreler. Ödeme işlemi gerçekleştirilemedi.");
+            return;
+        }
+        if (tutar <= 0) {
+            System.out.println("Hata: Geçersiz ödeme miktarı. Ödeme işlemi gerçekleştirilemedi.");
+            return;
+        }
+        System.out.println("Banka Kartı ile : "+ tutar + " TL. tutarında ödeme yapımıştır.");
         //eger banka karti ile ode methodu misafir girisinden cagrildiysa
         // burada banka kartinin kullaniciya ait oldugu tekrar  yapilacak
-
-        //Cemal Bey
+        //Cemal Bey;
 
     }
 
