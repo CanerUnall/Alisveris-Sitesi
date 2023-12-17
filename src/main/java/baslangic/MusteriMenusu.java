@@ -4,8 +4,9 @@ import java.util.Scanner;
 
 public class MusteriMenusu {
 
-    public static void musteriMenu() {
-        Scanner scan = new Scanner(System.in);
+    public static void musteriMenu(Scanner scan) {
+
+        int secim;
         do {
 
             System.out.println("Hesabiniza Basariyla Giris Yapildi.\n" +
@@ -19,8 +20,8 @@ public class MusteriMenusu {
                     "7. Hesap ayarları\n" +
                     "8. Çıkış Yap\n" +
                     "Lutfen seciminizi yapiniz.");
-            int secim = scan.nextInt();
 
+            secim = scan.nextInt();
             switch (secim) {
                 case 1:
                     //Ürünleri görüntülemek icin bir method olusturmam lazim.
@@ -30,6 +31,7 @@ public class MusteriMenusu {
                     break;
                 case 2:
                     // Hesaba bakiye yüklemek icin method olusturmam lazim.
+
                     System.out.println("Hesaba bakiye yüklemek icin methodlar henuz hazir degil\n" +
                             "ama dongu calisiyor.");
                     break;
@@ -75,7 +77,7 @@ public class MusteriMenusu {
                 break;
             }
 
-        } while (true);
+        } while (secim != 8);
 
     }
 }
