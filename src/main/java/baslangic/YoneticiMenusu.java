@@ -5,6 +5,7 @@ import java.util.Scanner;
 public class YoneticiMenusu {
     public static void yoneticiMenu() {
         Scanner scan = new Scanner(System.in);
+        int secim;
         do {
 
             System.out.println("Hesabiniza Basariyla Giris Yapildi.\n" +
@@ -16,7 +17,7 @@ public class YoneticiMenusu {
                     "5. Müsteri istatistiklerini görüntüle\n" +
                     "6. Çıkış Yap\n" +
                     "Lutfen seciminizi yapiniz.");
-            int secim = scan.nextInt();
+            secim = scan.nextInt();
 
             switch (secim) {
                 case 1:
@@ -62,7 +63,7 @@ public class YoneticiMenusu {
                 break;
             }
 
-        } while (true);
+        } while (secim!=6);
 
     }
 }

@@ -5,13 +5,14 @@ import java.util.Scanner;
 public class MisafirMenu {
     public static void misafirMenu() {
         Scanner scan = new Scanner(System.in);
+        int secim;
         do {
 
             System.out.println("xxx Sitesine Hosgeldiniz.\n" +
                     "1. Ürünleri görüntüle\n" +
                     "2. Alışveriş sepetini görüntüle\n" +
                     "3. Ödeme noktasına ilerle.");
-            int secim = scan.nextInt();
+            secim = scan.nextInt();
 
             switch (secim) {
                 case 1:

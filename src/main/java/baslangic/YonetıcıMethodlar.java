@@ -11,7 +11,7 @@ public class YonetıcıMethodlar {
     static List<Yonetici> tumYoneticiler = new ArrayList<>();
 
     public static void tumYoneticiler(){
-        tumYoneticiler.add(new Yonetici());
+        tumYoneticiler.add(new Yonetici("Caner Unal","sifreyok"));
         tumYoneticiler.add(new Yonetici());
         tumYoneticiler.add(new Yonetici());
         tumYoneticiler.add(new Yonetici());
