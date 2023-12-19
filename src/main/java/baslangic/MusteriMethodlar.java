@@ -308,7 +308,7 @@ public class MusteriMethodlar {
 
     boolean validCVV(String cvv) {
         return cvv.matches("\\d{3}");
-    }//Cemal Bey
+    }
 
 
     void makbuz() {
