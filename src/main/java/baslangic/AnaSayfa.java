@@ -5,6 +5,7 @@ import java.util.Scanner;
 public class AnaSayfa {
     public void Application() {
         Scanner scan = new Scanner(System.in);
+        int secim;
         do {
 
             System.out.println("xxx Sitesine Hoşgeldiniz.\n" +
@@ -14,18 +15,18 @@ public class AnaSayfa {
                     "4. Yönetici olarak Giriş Yap.\n" +
                     "5. Çıkış yap.\n" +
                     "Seçiminizi giriniz :");
-            int secim = scan.nextInt();
+            secim = scan.nextInt();
 
             switch (secim) {
                 case 1:
                     //Yeni Müşteri Hesabı Açmak icin bir method olusturmam lazim.
 
-                    DegiskenleriBurda.yeniHesapAc(scan);
+                    MusteriMethodlar.yeniHesapAc(scan);
                     System.out.println("Yeni Müşteri Hesabı Açmak icin methodlar henuz hazir degil\n" +
                             "ama dongu calisiyor.");
                     break;
                 case 2:
-                    MusteriMenusu.musteriMenu();
+                    MusteriMethodlar.musteriGirisi(scan);
                     //Müşteri Hesabına Giriş Yapmak icin method olusturmam lazim.
                     System.out.println("Müşteri Hesabına Giriş Yapmak icin methodlar henuz hazir degil\n" +
                             "ama dongu calisiyor.");
@@ -50,15 +51,8 @@ public class AnaSayfa {
                     break;
             }
 
-            System.out.println("Yeni bir işlem yapmak ister misiniz? (Evet ise 1, Hayır ise 2'yi seçiniz.)");
 
-            int devamMi = scan.nextInt();
-
-            if (devamMi != 1) {
-                break;
-            }
-
-        } while (true);
+        } while (secim!=5);
 
     }
 

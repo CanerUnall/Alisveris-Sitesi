@@ -78,9 +78,13 @@ public class Musteri {
         return mailAdresi;
     }
 
+    public void setSiteBakiyesi(double siteBakiyesi) {
+        this.siteBakiyesi = siteBakiyesi;
+    }
+
     public Musteri(String kullaniciAdi, String kullanıcıSifre, int kullaniciYasi,
                    String kullaniciCinsiyeti, String bankaKartiNumarasi, String bankaKartiGuvenlikKodu,
-                   String kargoAdresi, String tel, String mailAdresi, double siteBakiyesi, double musteriBonus) {
+                   String kargoAdresi, String tel, String mailAdresi, double siteBakiyesi, double musteriBonus, String kullaniciNumarasi) {
 
         this.kullaniciAdi = kullaniciAdi;
         this.kullanıcıSifre = kullanıcıSifre;
@@ -93,6 +97,7 @@ public class Musteri {
         this.mailAdresi = mailAdresi;
         this.siteBakiyesi = siteBakiyesi;
         this.musteriBonus = musteriBonus;
+        this.kullaniciNumarasi = kullaniciNumarasi;
 
     }
 
