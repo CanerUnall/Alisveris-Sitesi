@@ -1,6 +1,9 @@
 package baslangic;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
@@ -102,8 +105,8 @@ public class MusteriMethodlar {
         //Cemal Bey
     }
 
-    void bankaKartiIleOde(String kartNo, String sonKullanmaTarihi, String cvv, double tutar){
-        if (kartNo == null || kartNo.isEmpty() || kartNo == null || kartNo.isEmpty() || cvv == null || cvv.isEmpty()) {
+    void bankaKartiIleOde(String kartNo, String sonKullanmaTarihi, String cvv, double tutar) {
+        if (!validKartNo(kartNo) || !validSonKullanmaTarihi(sonKullanmaTarihi) || !validCVV(cvv)) {
             System.out.println("Hata: Geçersiz veya eksik parametreler. Ödeme işlemi gerçekleştirilemedi.");
             return;
         }
@@ -111,12 +114,28 @@ public class MusteriMethodlar {
             System.out.println("Hata: Geçersiz ödeme miktarı. Ödeme işlemi gerçekleştirilemedi.");
             return;
         }
-        System.out.println("Banka Kartı ile : "+ tutar + " TL. tutarında ödeme yapımıştır.");
-        //eger banka karti ile ode methodu misafir girisinden cagrildiysa
-        // burada banka kartinin kullaniciya ait oldugu tekrar  yapilacak
-        //Cemal Bey;
-
+        System.out.println("Banka Kartı ile: " + tutar + " TL. tutarında ödeme yapılmıştır.");
     }
+
+    boolean validKartNo(String kartNo) {
+        return kartNo.matches("\\d{4}-\\d{4}-\\d{4}-\\d{4}");
+    }
+
+    boolean validSonKullanmaTarihi(String sonKullanmaTarihi) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MM/yyyy");
+        dateFormat.setLenient(false);
+        try {
+            Date date = dateFormat.parse(sonKullanmaTarihi);
+            return true;
+        } catch (ParseException e) {
+            return false;
+        }
+    }
+
+    boolean validCVV(String cvv) {
+        return cvv.matches("\\d{3}");
+    }
+
 
     void makbuz (){
         //odeme tamamlandiktan sonra bir makbuz yazilsin.
