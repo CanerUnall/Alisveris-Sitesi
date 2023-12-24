@@ -9,45 +9,42 @@ public class YoneticiMenusu {
         do {
 
             System.out.println("Hesabiniza Basariyla Giris Yapildi.\n" +
-                    "\n" +
                     "1. Müşteri Sayısı\n" +
                     "2. Tüm Müşteri İsimleri\n" +
                     "3. Satılan ürünleri görüntülesin\n" +
                     "4. Sitedeki ürün stogunu görüntülesin\n" +
                     "5. Müsteri istatistiklerini görüntüle\n" +
-                    "6. Çıkış Yap\n" +
+                    "6. Kullanici engelle\n" +
+                    "7. Çıkış Yap\n" +
                     "Lutfen seciminizi yapiniz.");
             secim = scan.nextInt();
 
             switch (secim) {
                 case 1:
                     //Müşteri Sayısı görüntülemek icin bir method olusturmam lazim.
-
-                    System.out.println("Müşteri Sayısı icin methodlar henuz hazir degil\n" +
-                            "ama dongu calisiyor.");
+                    YoneticiMethodlar.toplamMusteriSayisi();
                     break;
                 case 2:
                     // Tüm Müşteri İsimleri gormek icin method olusturmam lazim.
-                    System.out.println("Tüm Müşteri İsimleri gormek icin methodlar henuz hazir degil\n" +
-                            "ama dongu calisiyor.");
+                    YoneticiMethodlar.tumMusteriIsimleri();
                     break;
                 case 3:
                     //Satılan ürünleri görüntülemek icin gerekli methodlari olusturmam lazim
-                    System.out.println("Satılan ürünleri görüntülemek icin methodlar henuz hazir degil\n" +
-                            "ama dongu calisiyor.");
+                    YoneticiMethodlar.satilanUrunler();
                     break;
                 case 4:
                     //Sitedeki ürün stogunu görüntülemek icin method olusturmam lazim
-                    System.out.println("Sitedeki ürün stogunu görüntülemek icin methodlar henuz hazir degil\n" +
-                            "ama dongu calisiyor.");
+                    YoneticiMethodlar.tumUrunStogunuGoruntule(scan);
+
                     break;
                 case 5:
                     //Müsteri istatistiklerini görüntüleyebilmek icin method olusturmam lazim
-                    System.out.println("Müsteri istatistiklerini görüntüleyebilmek  icin methodlar henuz hazir degil\n" +
-                            "ama dongu calisiyor.");
+                    YoneticiMethodlar.musteriIstatikleriniGoruntule();
+
                     break;
                 case 6:
-                    //Alışveriş sepetini görüntülemek icin method olusturmam lazim
+                    YoneticiMethodlar.musteriEngelle(scan);
+                case 7:
                     System.out.println("Cikis yapiliyor");
                     break;
                 default:
@@ -63,7 +60,7 @@ public class YoneticiMenusu {
                 break;
             }
 
-        } while (secim!=6);
+        } while (secim != 6);
 
     }
 }

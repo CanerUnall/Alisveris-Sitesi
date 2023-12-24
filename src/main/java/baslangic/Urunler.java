@@ -8,8 +8,19 @@ public class Urunler {
     private double urunFiyati;
     private int stokAdeti;
 
+    private String islemTarihi;
+    private int alinanUrunAdeti;
+
     public String getUrunAdi() {
         return urunAdi;
+    }
+
+    public String getIslemTarihi() {
+        return islemTarihi;
+    }
+
+    public int getAlinanUrunAdeti() {
+        return alinanUrunAdeti;
     }
 
     public double getUrunFiyati() {
@@ -20,14 +31,21 @@ public class Urunler {
         return stokAdeti;
     }
 
+    public void setStokAdeti(int stokAdeti) {
+        this.stokAdeti = stokAdeti;
+    }
+
     public Urunler(String urunAdi, double urunFiyati, int stokAdeti) {
         this.urunAdi = urunAdi;
         this.urunFiyati = urunFiyati;
         this.stokAdeti = stokAdeti;
     }
 
-    public Urunler() {
+    // islem tarihini belirlemek icin olusturduk
+    public Urunler(String islemTarihi, String urunAdi, double urunFiyati, int alinanUrunAdeti) {
+        this.urunAdi = urunAdi;
+        this.urunFiyati = urunFiyati;
+        this.islemTarihi = islemTarihi;
+        this.alinanUrunAdeti = alinanUrunAdeti;
     }
-
-
 }

@@ -42,6 +42,7 @@
                 Alınan ürünler geçmişi
         7. Hesap ayarları
                 Hesabı komple sil
+
         8. Çıkış Yap
 
         C---Misafir olarak devam et:

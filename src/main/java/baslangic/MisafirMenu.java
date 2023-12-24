@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 public class MisafirMenu {
     public static void misafirMenu() {
+        Musteri misafirHesap = new Musteri();
         Scanner scan = new Scanner(System.in);
         int secim;
         do {
@@ -17,18 +18,19 @@ public class MisafirMenu {
             switch (secim) {
                 case 1:
                     //Ürünleri görüntülemek icin bir method olusturmam lazim.
-
+                    MusteriMethodlar.urunleriGoruntule(scan, misafirHesap);
                     System.out.println("Ürünleri görüntülemek icin methodlar henuz hazir degil\n" +
                             "ama dongu calisiyor.");
                     break;
                 case 2:
-
+                    MusteriMethodlar.sepetiGoruntule(scan, misafirHesap);
                     //Alışveriş sepetini görüntülemek icin method olusturmam lazim.
                     System.out.println("Alışveriş sepetini görüntülemek icin methodlar henuz hazir degil\n" +
                             "ama dongu calisiyor.");
                     break;
                 case 3:
                     //Odeme noktasina ilerlemek icin gerekli methodlari olusturmam lazim
+                    //MusteriMethodlar.bankaKartiIleOde(scan, misafirHesap,);
                     System.out.println("Ödeme noktasina ilerlemek icin methodlar henuz hazir degil\n" +
                             "ama dongu calisiyor.");
                     break;
