@@ -4,12 +4,12 @@ import java.util.Scanner;
 
 public class MusteriMenusu {
 
-    public static void musteriMenu(Scanner scan) {
+    public static void musteriMenu(Scanner scan, Musteri mevcutMusteriHesabi) {
 
         int secim;
         do {
 
-            System.out.println("Hesabiniza Basariyla Giris Yapildi.\n" +
+            System.out.println("\n" +
                     "\n" +
                     "1. Ürünleri görüntüle\n" +
                     "2. Hesaba bakiye yükleme\n" +
@@ -25,40 +25,39 @@ public class MusteriMenusu {
             switch (secim) {
                 case 1:
                     //Ürünleri görüntülemek icin bir method olusturmam lazim.
+                    MusteriMethodlar.urunleriGoruntule(scan,mevcutMusteriHesabi);
 
-                    System.out.println("Ürünleri görüntülemek icin methodlar henuz hazir degil\n" +
-                            "ama dongu calisiyor.");
                     break;
                 case 2:
                     // Hesaba bakiye yüklemek icin method olusturmam lazim.
+                    MusteriMethodlar.bakiyeYukle(scan, mevcutMusteriHesabi);
 
-                    System.out.println("Hesaba bakiye yüklemek icin methodlar henuz hazir degil\n" +
-                            "ama dongu calisiyor.");
                     break;
                 case 3:
                     //Hesap bakiyesini nakite çevirmek icin gerekli methodlari olusturmam lazim
-                    System.out.println("Hesap bakiyesini nakite çevirmek icin methodlar henuz hazir degil\n" +
-                            "ama dongu calisiyor.");
+                    MusteriMethodlar.nakiteCevir(scan,mevcutMusteriHesabi);
+
                     break;
                 case 4:
                     //Alışveriş sepetini görüntülemek icin method olusturmam lazim
-                    System.out.println("Alışveriş sepetini görüntülemek icin methodlar henuz hazir degil\n" +
-                            "ama dongu calisiyor.");
+                    MusteriMethodlar.sepetiGoruntule(scan,mevcutMusteriHesabi);
+
                     break;
                 case 5:
                     //İndirimli ürünleri görüntüleyebilmek icin method olusturmam lazim
-                    System.out.println("İndirimli ürünleri görüntüleyebilmek icin methodlar henuz hazir degil\n" +
-                            "ama dongu calisiyor.");
+                    MusteriMethodlar.indirimliUrunleriGoruntule(scan, mevcutMusteriHesabi);
+
                     break;
                 case 6:
                     //Hesap geçmişini görüntülemek icin method olusturmam lazim
+                    MusteriMethodlar.hesapGecmisiniGoruntule(mevcutMusteriHesabi,scan);
                     System.out.println("Hesap geçmişini görüntülemek icin methodlar henuz hazir degil\n" +
                             "ama dongu calisiyor.");
                     break;
                 case 7:
                     //Hesap ayarları icin method olusturmam lazim
-                    System.out.println("Hesap ayarları icin methodlar henuz hazir degil\n" +
-                            "ama dongu calisiyor.");
+                    MusteriMethodlar.hesapAyarlari(mevcutMusteriHesabi);
+
                     break;
                 case 8:
 
