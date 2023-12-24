@@ -2,10 +2,10 @@ package baslangic;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+
 import java.time.LocalDate;
 import java.util.*;
 
-//import static baslangic.UrunlerMethodlar.*;
 
 public class MusteriMethodlar {
     /*private static List<Urunler> alisverisSepeti = new ArrayList<>();
@@ -913,90 +913,3 @@ public class MusteriMethodlar {
 
 
 }
-/*    static void siteBakiyesiIleOde(Scanner scan, double tutar, Musteri mevcutMusteriHesabi) {
-        if (mevcutMusteriHesabi.getSiteBakiyesi() >= tutar) {
-            mevcutMusteriHesabi.setSiteBakiyesi(mevcutMusteriHesabi.getSiteBakiyesi() - tutar);
-
-            String islemTarihi = LocalDate.now().toString();
-
-            for (Urunler sepettekiUrun : mevcutMusteriHesabi.getAlisverisSepeti()) {
-                Urunler alinanUrun = new Urunler(islemTarihi, sepettekiUrun.getUrunAdi(),
-                        sepettekiUrun.getUrunFiyati(), sepettekiUrun.getAlinanUrunAdeti());
-                mevcutMusteriHesabi.getAlinanUrunGecmisi().add(alinanUrun);
-            }
-
-
-            System.out.println("Site Bakiyesinden : " + tutar + "tutarında ödeme yapılmıştır. Kalan Bakiye: " + mevcutMusteriHesabi.getSiteBakiyesi());
-
-            makbuz(mevcutMusteriHesabi);
-        } else {
-            System.out.println("Yetersiz Bakiye. Ödeme yapılamadı.\n" +
-                    "Hesabiniza bakiye yuklemek isterseniz 1'e,\n" +
-                    "Ana menuye donmek isterseniz 2'ye\n" +
-                    "Cikis yapmak isterseniz istediginiz bir tusa basiniz.");
-            int secim = intScanner(scan);
-            if (secim == 1) {
-                bakiyeYukle(scan, mevcutMusteriHesabi);
-            } else if (secim == 2) {
-                AnaSayfa.Application();
-            } else {
-                System.exit(0);
-            }
-        }
-        //Cemal Bey
-    }
-
-    static void bankaKartiIleOde(Scanner scan, double tutar) {
-        System.out.print("Lutfen kart numaranizi giriniz : ");
-        String kartNo = scan.nextLine();
-        System.out.print("Lutfen kartinizin son kullanma tarihini giriniz : ");
-        String sonKullanmaTarihi = scan.nextLine();
-        System.out.print("Lutfen kartinizin arkasindaki guvenlik kodunu giriniz : ");
-        String cvv = scan.nextLine();
-
-
-        if (!validKartNo(kartNo) || !validSonKullanmaTarihi(sonKullanmaTarihi) || !validCVV(cvv)) {
-            System.out.println("Hata: Geçersiz veya eksik parametreler. Ödeme işlemi gerçekleştirilemedi.");
-            return;
-        }
-        if (tutar <= 0) {
-            System.out.println("Hata: Geçersiz ödeme miktarı. Ödeme işlemi gerçekleştirilemedi.");
-            return;
-        }
-        System.out.println("Banka Kartı ile: " + tutar + " TL. tutarında ödeme yapılmıştır.");
-    }
-
-    static boolean validKartNo(String kartNo) {
-        return kartNo.matches("\\d{4}-\\d{4}-\\d{4}-\\d{4}");
-    }
-
-    static boolean validSonKullanmaTarihi(String sonKullanmaTarihi) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("MM/yyyy");
-        dateFormat.setLenient(false);
-        try {
-            Date date = dateFormat.parse(sonKullanmaTarihi);
-            return true;
-        } catch (ParseException e) {
-            return false;
-        }
-    }
-
-    static boolean validCVV(String cvv) {
-        return cvv.matches("\\d{3}");
-    }
-
-    static void makbuz(Musteri mevcutMusteriHesabi) {
-        //odeme tamamlandiktan sonra bir makbuz yazilsin.
-        // alinan urunler fiyatlari vs ve toplam miktar vs vs yazsin.
-        System.out.println("Satin alma islemi basariyla gerceklestirildi. Makbuzunuz asagidaki gibidir.");
-
-        System.out.printf("\u001B[36m Islem Tarihi :%7s,Urun Adi :%7f, Alinan Urun Adeti : %5f, Urun Fiyati : %5d,Toplam Fiyat : %5d \u001B[0m");
-
-        for (Urunler alinanUrun : mevcutMusteriHesabi.getAlinanUrunGecmisi()) {
-
-            System.out.printf(alinanUrun.getIslemTarihi(), alinanUrun.getUrunFiyati(), alinanUrun.getAlinanUrunAdeti(),
-                    alinanUrun.getUrunFiyati(), (alinanUrun.getAlinanUrunAdeti() * alinanUrun.getUrunFiyati()));
-
-        }
-        //Yavuz Bey
-    }*/
