@@ -90,35 +90,79 @@ public class MusteriMethodlar {
                 }
             } else {
                 System.out.println("\u001B[34m Parola  en az sekiz karakter olmali \u001B[0m ");
-
             }
         } while (flag);
 
         System.out.println("Lutfen yasinizi giriniz");
         int kullaniciYasi = intScanner(scan);
-        System.out.println("lutfen cinsiyetinizi giriniz");
-        String kullaniciCinsiyeti = stringScanner(scan);
-        System.out.println("Lutfen 16 haneden olusan bank kart numaranizi giriniz");
-        String bankaKartiNumarasi = scan.nextLine();
-        //String yildizKn = bankaKartiNumarasi.substring(12, 16).replaceAll("[0-9]", "*");
-        System.out.println("Lutfen kartin arkasinda bulunan 3 haneli guvenlik kodunu giriniz");
-        String bankaKartiGuvenlikKodu = scan.next();
         scan.nextLine();
-        System.out.println("Lutfen urunleri ulastirabilecegimiz kargo adresiniz giriniz");
+        String kullaniciCinsiyeti;
 
+        while (true) {
+            System.out.println("Lütfen cinsiyetinizi giriniz (erkek/kadin): ");
+            kullaniciCinsiyeti = scan.nextLine();
+            if ((kullaniciCinsiyeti.equalsIgnoreCase("erkek")) || (kullaniciCinsiyeti.equalsIgnoreCase("kadin"))) {
+                break;
+            } else {
+                System.out.println("Lütfen cinsiyetinizi 'erkek' ya da 'kadin' olarak giriniz.");
+            }
+        }
+
+        String bankaKartiNumarasi;
+        while (true) {
+            System.out.println("Lutfen 16 haneden olusan ****-****-****-**** formatinda bank kart numaranizi giriniz ");
+            bankaKartiNumarasi = scan.nextLine();
+            if (validKartNo(bankaKartiNumarasi)) {
+                break;
+            } else System.out.println("kart numaraniz 16 haneden olusmalidir.");
+        }
+        String bankaKartiGuvenlikKodu;
+        do {
+            System.out.println("Lutfen kartin arkasinda bulunan 3 haneli guvenlik kodunu giriniz");
+            bankaKartiGuvenlikKodu = scan.nextLine();
+            if (validCVV(bankaKartiGuvenlikKodu)) {
+                break;
+            } else {
+                System.out.println("lutfen 3 haneden olusan bank kart numarasi giriniz");
+            }
+        } while (true);
+
+        String sonKullanmaTarihi;
+        do {
+            System.out.print("lutfen kartinizin son kullanma tarihini(MM/YYYY) formatında girin: ");
+            sonKullanmaTarihi = scan.nextLine();
+            if (validSonKullanmaTarihi(sonKullanmaTarihi)) {
+                break;
+            } else System.out.println("lutfen belirtilen formatta giriniz");
+
+        } while (true);
+
+        System.out.println("Lutfen urunleri ulastirabilecegimiz kargo adresiniz giriniz");
         String kargoAdresi = scan.nextLine();
-        System.out.println("Lutfen telefon numaranizi giriniz");
-        String tel = scan.nextLine();
-        System.out.println("Lutfen mail adresinizi giriniz");
-        String mailAdresi = scan.nextLine();
+        String tel;
+        do {
+            System.out.println("Lutfen 10 haneden olusan telefon numaranizi basinda sifir olmadan giriniz");
+            tel = scan.nextLine();
+            if (tel.matches("\\d{10}")) {
+                break;
+            } else System.out.println("lutfen en az 10 haneden olusan bir telefon numarasi giriniz");
+        } while (true);
+
+        String mailAdresi;
+
+        do {
+            System.out.println("Lutfen mail adresinizi giriniz");
+            mailAdresi = scan.nextLine();
+            if (mailAdresi.endsWith("@gmail.com") || (mailAdresi.endsWith("@outlook.com") || (mailAdresi.endsWith("@hotmail.com")))) {
+                break;
+            } else System.out.println("lutfen mail adresi formatinda giriniz");
+        } while (true);
+
         System.out.println("Lutfen yuklemek istediginiz bakiyenizi giriniz");
         double yuklenenBakiye = doubleScanner(scan);
         double siteBakiyesi = yuklenenBakiye;
-
-        //System.out.println("bonuss");
         double musteriBonus = siteBakiyesi / 20;
         System.out.println("Guncel bonusunuz : " + musteriBonus);
-        //double musteriBonus = scan.nextDouble();
 
         String kullaniciNumarasi = Musteri.getKullaniciKayitNumarasi() + "";
         Musteri.setKullaniciKayitNumarasi(Musteri.getKullaniciKayitNumarasi() + 1);
@@ -130,12 +174,13 @@ public class MusteriMethodlar {
         List<Musteri> bakiyeCekmeGecmisiAcilisi = new ArrayList<>();
         List<Urunler> alinanUrunGecmisiAcilisi = new ArrayList<>();
         List<Musteri> bonusGecmisiAcilisi = new ArrayList<>();
+        List<Musteri> harcamaGecmisi = new ArrayList<>();
 
         Musteri musTeri = new Musteri(kullaniciAdi, kullaniciSifre, kullaniciYasi,
-                kullaniciCinsiyeti, bankaKartiNumarasi, bankaKartiGuvenlikKodu,
+                kullaniciCinsiyeti, bankaKartiNumarasi, sonKullanmaTarihi, bankaKartiGuvenlikKodu,
                 kargoAdresi, tel, mailAdresi, siteBakiyesi, musteriBonus, kullaniciNumarasi,
                 alisverisSepetiAcilisi, alinanUrunGecmisiAcilisi, bakiyeCekmeGecmisiAcilisi,
-                bakiyeYuklemeGecmisiAcilisi, bonusGecmisiAcilisi);
+                bakiyeYuklemeGecmisiAcilisi, bonusGecmisiAcilisi, harcamaGecmisi);
 
         Musteri.getTumKullanicilar().add(musTeri);
 
@@ -149,25 +194,47 @@ public class MusteriMethodlar {
 
     }
 
-   /* public Musteri musteriHesabinaGiris(LinkedList<Musteri> musteriList) {
-        System.out.println("musteri Hesabina giris yapmak icin Kullanici adinizi ve sekiz haneden olusan sifrenizi giriniz");
-        String musteriHesabi = stringScanner(scan);
-        for (Musteri mus : musteriList) {
-            if (mus.getKullaniciAdi().equals(getKullaniciAdi()) && mus.getKullanıcıSifre().equals(getKullanıcıSifre())) {
-                if (mus.getKullaniciCinsiyeti().equals("Kadin")) {
-                    System.out.println(getKullaniciAdi() + " Hanim Hesabiniza hosgeldiniz keyifli alisveriler");
-                } else System.out.println(getKullaniciAdi() + " Bey Hesabiniza hosgeldiniz keyifli alisveriler ");
+    /* public Musteri musteriHesabinaGiris(LinkedList<Musteri> musteriList) {
+         System.out.println("musteri Hesabina giris yapmak icin Kullanici adinizi ve sekiz haneden olusan sifrenizi giriniz");
+         String musteriHesabi = stringScanner(scan);
+         for (Musteri mus : musteriList) {
+             if (mus.getKullaniciAdi().equals(getKullaniciAdi()) && mus.getKullanıcıSifre().equals(getKullanıcıSifre())) {
+                 if (mus.getKullaniciCinsiyeti().equals("Kadin")) {
+                     System.out.println(getKullaniciAdi() + " Hanim Hesabiniza hosgeldiniz keyifli alisveriler");
+                 } else System.out.println(getKullaniciAdi() + " Bey Hesabiniza hosgeldiniz keyifli alisveriler ");
 
-                return mus;
-            } else {
-                System.out.println("lutfen kullanici adinizi ve sifrenizi kontrol edip tekrar deneyiniz");
-            }
+                 return mus;
+             } else {
+                 System.out.println("lutfen kullanici adinizi ve sifrenizi kontrol edip tekrar deneyiniz");
+             }
+         }
+         return null;
+     }
+
+ }*/
+    public static void urunleriListele(List<Urunler> urunListesi, Musteri mevcutMusteriHesabi) {
+        Scanner scan = new Scanner(System.in);
+        int urunNo = 0;
+        int ürünKodu = 1;
+        System.out.printf("%-20s   %-20s   %-20s  \n", "Urun Adi", "Fiyati", "Stokta Kalan");
+        System.out.printf("%-20s   %-20s   %-20s  \n", "--------", "------", "------------");
+        for (Urunler w : urunListesi) {
+            System.out.printf("%-20s   %-20s   %-20s  \n", ürünKodu + ") " + w.getUrunAdi(), w.getUrunFiyati(), w.getStokAdeti());
+            ürünKodu++;
         }
-        return null;
+
+        System.out.println("Sepete urun eklemek isterseniz 1'e\n" +
+                "Ana menuye gitmek icin herhangi bir tusa basabilirsiniz");
+        int eklemeyeDevam = intScanner(scan);
+        if (eklemeyeDevam == 1) {
+            System.out.println("\nLütfen sepete eklemek istediğiniz ürünü seçiniz");
+            urunNo = scan.nextInt();
+            sepeteEkle(mevcutMusteriHesabi, urunListesi, urunNo);
+
+        } else {
+
+        }
     }
-
-}*/
-
 
     static void urunleriGoruntule(Scanner scan, Musteri mevcutMusteriHesabi) {
         /*1- Burada 10 farklı kategori olacak
@@ -187,8 +254,7 @@ public class MusteriMethodlar {
                 "9. Hayvan Ürünleri\n" +
                 "10. Kozmetik");
         int secim = 0;
-        int urunNo = 0;
-        int ürünKodu = 1;
+
         while (true) {
             try {
                 System.out.println("Lütfen 1 ile 10 arasında bir sayı giriniz:");
@@ -208,144 +274,92 @@ public class MusteriMethodlar {
 
         switch (secim) {
             case 1:
-                UrunlerMethodlar.kirtasiye();
-                System.out.printf("%-20s   %-20s   %-20s  \n", "Urun Adi", "Fiyati", "Stokta Kalan");
-                System.out.printf("%-20s   %-20s   %-20s  \n", "--------", "------", "------------");
-                for (Urunler w : UrunlerMethodlar.kirtasiye) {
-                    System.out.printf("%-20s   %-20s   %-20s  \n", ürünKodu + ") " + w.getUrunAdi(), w.getUrunFiyati(), w.getStokAdeti());
-                    ürünKodu++;
+                if (UrunlerMethodlar.kirtasiyeUrunleriIndirimdemi) {
+                    urunKategorisiniPrintFYazdir(UrunlerMethodlar.kirtasiye, scan, mevcutMusteriHesabi);
+                } else {
+                    urunleriListele(UrunlerMethodlar.kirtasiye, mevcutMusteriHesabi);
                 }
-                System.out.println("\nLütfen sepete eklemek istediğiniz ürünü seçiniz");
-                urunNo = scan.nextInt();
-                sepeteEkle(mevcutMusteriHesabi, UrunlerMethodlar.kirtasiye, urunNo);
-                System.out.println("\nAlışverişe devam etmek için 1'e, ödeme işlemleri için 2'ye basınız");
                 break;
 
             case 2:
-                UrunlerMethodlar.manav();
-                System.out.printf("%-20s   %-20s   %-20s  \n", "Urun Adi", "Fiyati", "Stokta Kalan");
-                System.out.printf("%-20s   %-20s   %-20s  \n", "--------", "------", "------------");
-                for (Urunler w : UrunlerMethodlar.manav) {
-                    System.out.printf("%-20s   %-20s   %-20s  \n", ürünKodu + ") " + w.getUrunAdi(), w.getUrunFiyati(), w.getStokAdeti());
-                    ürünKodu++;
+                if (UrunlerMethodlar.manavUrunleriIndirimdemi) {
+                    urunKategorisiniPrintFYazdir(UrunlerMethodlar.manav, scan, mevcutMusteriHesabi);
+                } else {
+                    urunleriListele(UrunlerMethodlar.manav, mevcutMusteriHesabi);
                 }
-                System.out.println("\nLütfen sepete eklemek istediğiniz ürünü seçiniz");
-                urunNo = scan.nextInt();
-                sepeteEkle(mevcutMusteriHesabi, UrunlerMethodlar.manav, urunNo);
-                System.out.println("\nAlışverişe devam etmek için 1'e, ödeme işlemleri için 2'ye basınız");
+
                 break;
 
             case 3:
-                UrunlerMethodlar.tekstil();
-                System.out.printf("%-20s   %-20s   %-20s  \n", "Urun Adi", "Fiyati", "Stokta Kalan");
-                System.out.printf("%-20s   %-20s   %-20s  \n", "--------", "------", "------------");
-                for (Urunler w : UrunlerMethodlar.tekstil) {
-                    System.out.printf("%-20s   %-20s   %-20s  \n", ürünKodu + ") " + w.getUrunAdi(), w.getUrunFiyati(), w.getStokAdeti());
-                    ürünKodu++;
+                if (UrunlerMethodlar.tekstilUrunleriIndirimdemi) {
+                    urunKategorisiniPrintFYazdir(UrunlerMethodlar.tekstil, scan, mevcutMusteriHesabi);
+                } else {
+                    urunleriListele(UrunlerMethodlar.tekstil, mevcutMusteriHesabi);
                 }
-                System.out.println("\nLütfen sepete eklemek istediğiniz ürünü seçiniz");
-                urunNo = scan.nextInt();
-                sepeteEkle(mevcutMusteriHesabi, UrunlerMethodlar.tekstil, urunNo);
-                System.out.println("\nAlışverişe devam etmek için 1'e, ödeme işlemleri için 2'ye basınız");
+
                 break;
 
             case 4:
-                UrunlerMethodlar.kisiselBakim();
-                System.out.printf("%-20s   %-20s   %-20s  \n", "Urun Adi", "Fiyati", "Stokta Kalan");
-                System.out.printf("%-20s   %-20s   %-20s  \n", "--------", "------", "------------");
-                for (Urunler w : UrunlerMethodlar.kisiselBakim) {
-                    System.out.printf("%-20s   %-20s   %-20s  \n", ürünKodu + ") " + w.getUrunAdi(), w.getUrunFiyati(), w.getStokAdeti());
-                    ürünKodu++;
+                if (UrunlerMethodlar.kisiselBakimUrunleriIndirimdemi) {
+                    urunKategorisiniPrintFYazdir(UrunlerMethodlar.kisiselBakim, scan, mevcutMusteriHesabi);
+                } else {
+                    urunleriListele(UrunlerMethodlar.kisiselBakim, mevcutMusteriHesabi);
                 }
-                System.out.println("\nLütfen sepete eklemek istediğiniz ürünü seçiniz");
-                urunNo = scan.nextInt();
-                sepeteEkle(mevcutMusteriHesabi, UrunlerMethodlar.kisiselBakim, urunNo);
-                System.out.println("\nAlışverişe devam etmek için 1'e, ödeme işlemleri için 2'ye basınız");
+
                 break;
 
             case 5:
-                UrunlerMethodlar.hirdavat();
-                System.out.printf("%-20s   %-20s   %-20s  \n", "Urun Adi", "Fiyati", "Stokta Kalan");
-                System.out.printf("%-20s   %-20s   %-20s  \n", "--------", "------", "------------");
-                for (Urunler w : UrunlerMethodlar.hirdavat) {
-                    System.out.printf("%-20s   %-20s   %-20s  \n", ürünKodu + ") " + w.getUrunAdi(), w.getUrunFiyati(), w.getStokAdeti());
-                    ürünKodu++;
+                if (UrunlerMethodlar.hirdavatUrunleriIndirimdemi) {
+                    urunKategorisiniPrintFYazdir(UrunlerMethodlar.hirdavat, scan, mevcutMusteriHesabi);
+                } else {
+                    urunleriListele(UrunlerMethodlar.hirdavat, mevcutMusteriHesabi);
                 }
-                System.out.println("\nLütfen sepete eklemek istediğiniz ürünü seçiniz");
-                urunNo = scan.nextInt();
-                sepeteEkle(mevcutMusteriHesabi, UrunlerMethodlar.hirdavat, urunNo);
-                System.out.println("\nAlışverişe devam etmek için 1'e, ödeme işlemleri için 2'ye basınız");
+
                 break;
 
             case 6:
-                UrunlerMethodlar.spor();
-                System.out.printf("%-20s   %-20s   %-20s  \n", "Urun Adi", "Fiyati", "Stokta Kalan");
-                System.out.printf("%-20s   %-20s   %-20s  \n", "--------", "------", "------------");
-                for (Urunler w : UrunlerMethodlar.spor) {
-                    System.out.printf("%-20s   %-20s   %-20s  \n", ürünKodu + ") " + w.getUrunAdi(), w.getUrunFiyati(), w.getStokAdeti());
-                    ürünKodu++;
+                if (UrunlerMethodlar.sporUrunleriIndirimdemi) {
+                    urunKategorisiniPrintFYazdir(UrunlerMethodlar.spor, scan, mevcutMusteriHesabi);
+                } else {
+                    urunleriListele(UrunlerMethodlar.spor, mevcutMusteriHesabi);
                 }
-                System.out.println("\nLütfen sepete eklemek istediğiniz ürünü seçiniz");
-                urunNo = scan.nextInt();
-                sepeteEkle(mevcutMusteriHesabi, UrunlerMethodlar.spor, urunNo);
-                System.out.println("\nAlışverişe devam etmek için 1'e, ödeme işlemleri için 2'ye basınız");
+
                 break;
 
             case 7:
-                UrunlerMethodlar.otoAksesuar();
-                System.out.printf("%-20s   %-20s   %-20s  \n", "Urun Adi", "Fiyati", "Stokta Kalan");
-                System.out.printf("%-20s   %-20s   %-20s  \n", "--------", "------", "------------");
-                for (Urunler w : UrunlerMethodlar.otoAksesuar) {
-                    System.out.printf("%-20s   %-20s   %-20s  \n", ürünKodu + ") " + w.getUrunAdi(), w.getUrunFiyati(), w.getStokAdeti());
-                    ürünKodu++;
+                if (UrunlerMethodlar.otoAksesuarUrunleriIndirimdemi) {
+                    urunKategorisiniPrintFYazdir(UrunlerMethodlar.otoAksesuar, scan, mevcutMusteriHesabi);
+                } else {
+                    urunleriListele(UrunlerMethodlar.otoAksesuar, mevcutMusteriHesabi);
                 }
-                System.out.println("\nLütfen sepete eklemek istediğiniz ürünü seçiniz");
-                urunNo = scan.nextInt();
-                sepeteEkle(mevcutMusteriHesabi, UrunlerMethodlar.otoAksesuar, urunNo);
-                System.out.println("\nAlışverişe devam etmek için 1'e, ödeme işlemleri için 2'ye basınız");
+
                 break;
 
             case 8:
-                UrunlerMethodlar.elektronik();
-                System.out.printf("%-20s   %-20s   %-20s  \n", "Urun Adi", "Fiyati", "Stokta Kalan");
-                System.out.printf("%-20s   %-20s   %-20s  \n", "--------", "------", "------------");
-                for (Urunler w : UrunlerMethodlar.elektronik) {
-                    System.out.printf("%-20s   %-20s   %-20s  \n", ürünKodu + ") " + w.getUrunAdi(), w.getUrunFiyati(), w.getStokAdeti());
-                    ürünKodu++;
+                if (UrunlerMethodlar.elekronikUrunleriIndirimdemi) {
+                    urunKategorisiniPrintFYazdir(UrunlerMethodlar.elektronik, scan, mevcutMusteriHesabi);
+                } else {
+                    urunleriListele(UrunlerMethodlar.elektronik, mevcutMusteriHesabi);
                 }
-                System.out.println("\nLütfen sepete eklemek istediğiniz ürünü seçiniz");
-                urunNo = scan.nextInt();
-                sepeteEkle(mevcutMusteriHesabi, UrunlerMethodlar.elektronik, urunNo);
-                System.out.println("\nAlışverişe devam etmek için 1'e, ödeme işlemleri için 2'ye basınız");
+
                 break;
 
             case 9:
-                UrunlerMethodlar.hayvanUrunleri();
-                System.out.printf("%-20s   %-20s   %-20s  \n", "Urun Adi", "Fiyati", "Stokta Kalan");
-                System.out.printf("%-20s   %-20s   %-20s  \n", "--------", "------", "------------");
-                for (Urunler w : UrunlerMethodlar.hayvanUrunleri) {
-                    System.out.printf("%-20s   %-20s   %-20s  \n", ürünKodu + ") " + w.getUrunAdi(), w.getUrunFiyati(), w.getStokAdeti());
-                    ürünKodu++;
+                if (UrunlerMethodlar.hayvanUrunleriUrunleriIndirimdemi) {
+                    urunKategorisiniPrintFYazdir(UrunlerMethodlar.hayvanUrunleri, scan, mevcutMusteriHesabi);
+                } else {
+                    urunleriListele(UrunlerMethodlar.hayvanUrunleri, mevcutMusteriHesabi);
                 }
-                System.out.println("\nLütfen sepete eklemek istediğiniz ürünü seçiniz");
-                urunNo = scan.nextInt();
-                sepeteEkle(mevcutMusteriHesabi, UrunlerMethodlar.hayvanUrunleri, urunNo);
-                System.out.println("\nAlışverişe devam etmek için 1'e, ödeme işlemleri için 2'ye basınız");
+
                 break;
 
             case 10:
-                UrunlerMethodlar.kozmetik();
-                ;
-                System.out.printf("%-20s   %-20s   %-20s  \n", "Urun Adi", "Fiyati", "Stokta Kalan");
-                System.out.printf("%-20s   %-20s   %-20s  \n", "--------", "------", "------------");
-                for (Urunler w : UrunlerMethodlar.kozmetik) {
-                    System.out.printf("%-20s   %-20s   %-20s  \n", ürünKodu + ") " + w.getUrunAdi(), w.getUrunFiyati(), w.getStokAdeti());
-                    ürünKodu++;
+                if (UrunlerMethodlar.kisiselBakimUrunleriIndirimdemi) {
+                    urunKategorisiniPrintFYazdir(UrunlerMethodlar.kozmetik, scan, mevcutMusteriHesabi);
+                } else {
+                    urunleriListele(UrunlerMethodlar.kozmetik, mevcutMusteriHesabi);
                 }
-                System.out.println("\nLütfen sepete eklemek istediğiniz ürünü seçiniz");
-                urunNo = scan.nextInt();
-                sepeteEkle(mevcutMusteriHesabi, UrunlerMethodlar.kozmetik, urunNo);
-                System.out.println("\nAlışverişe devam etmek için 1'e, ödeme işlemleri için 2'ye basınız");
+
                 break;
         }
 
@@ -388,35 +402,55 @@ public class MusteriMethodlar {
     static void sepetiGoruntule(Scanner scan, Musteri mevcutMusteriHesabi) {
 
         double toplam = 0;
-        System.out.printf("\u001B[33m%-20s %-20s %-20s %-20s%n\u001B[0m",
-                "Urun Adi", "Adet", "Fiyat", "Toplam Fiyat");
 
+        System.out.printf("\u001B[33m%-35s %-15s %-15s %-15s%n\u001B[0m",
+                "Urun Adi", "Adet", "Fiyat", "Toplam Fiyat");
+        System.out.println("---------------------------------------------------------------------------");
         for (Urunler sepet : mevcutMusteriHesabi.getAlisverisSepeti()) {
 
-            System.out.printf("%-20s %-20d %-20.2f %-20.2f%n",
+            System.out.printf("%-35s %-15d %-15.2f %-15.2f%n",
                     sepet.getUrunAdi(), sepet.getStokAdeti(), sepet.getUrunFiyati(),
                     sepet.getStokAdeti() * sepet.getUrunFiyati());
 
             toplam += (sepet.getStokAdeti() * sepet.getUrunFiyati());
 
         }
+        System.out.println("---------------------------------------------------------------------------");
+        System.out.printf("\u001B[33m%-67s %-20s%n\u001B[0m",
+                "Toplam Fiyat", toplam);
 
-        System.out.println("Sepetteki urunlerin toplam fiyati: " + toplam);
+        if (musteriHesapBul(mevcutMusteriHesabi.getKullaniciNumarasi()) != null) {
+            System.out.print("Hesap bakiyesi ile odeme yapmak icin 1'e\n" +
+                    "Banka karti ile odeme yapmak icin 2'e\n" +
+                    "Ana menuye donmek icin istediginiz herhangi bir tusa\n" +
+                    "Basiniz : ");
 
-        System.out.print("Hesap bakiyesi ile odeme yapmak icin 1'e\n" +
-                "Banka karti ile odeme yapmak icin 2'e\n" +
-                "Ana menuye donmek icin istediginiz herhangi bir tusa\n" +
-                "Basiniz : ");
+            int secim = intScanner(scan);
 
-        int secim = intScanner(scan);
+            if (secim == 1) {
+                siteBakiyesiIleOde(scan, toplam, mevcutMusteriHesabi);
+            } else if (secim == 2) {
+                bankaKartiIleOde(mevcutMusteriHesabi, scan, toplam);
 
-        if (secim == 1) {
-            siteBakiyesiIleOde(scan, toplam, mevcutMusteriHesabi);
-        } else if (secim == 2) {
-            bankaKartiIleOde(mevcutMusteriHesabi, scan, toplam);
-
+            } else {
+                // Diğer durumlar için bir şey yapılabiliriz
+            }
         } else {
+            System.out.print(
+                    "Banka karti ile odeme yapmak icin 1'e\n" +
+                            "Ana menuye donmek icin istediginiz herhangi bir tusa\n" +
+                            "Basiniz : ");
+
+            int secim = intScanner(scan);
+
+            if (secim == 1) {
+                bankaKartiIleOde(mevcutMusteriHesabi, scan, toplam);
+            } else {
+
+
+            }
             // Diğer durumlar için bir şey yapılabiliriz
+
         }
     }
 
@@ -529,13 +563,12 @@ public class MusteriMethodlar {
     static void urunKategorisiniPrintFYazdir(List<Urunler> kategori, Scanner scan, Musteri mevcutMusteriHesabi) {
 
         int urunKodu = 1;
-        System.out.printf("\u001B[%sm%-20s%-20s%-20s%-20s\u001B[0m%n", "34", "Urun Adi",
-                "Indirimsiz Fiyat", "Indirim Miktari", "Indirimli Fiyat");
-        System.out.printf("%-20s   %-20s   %-20s  %-20s  \n", "------------", "--------", "--------", "--------");
+        System.out.printf("\u001B[%sm%-35s%-20s%-20s%-20s\u001B[0m%n", "34", "    Urun Adi    ", "Indirimsiz Fiyat", "Indirim Miktari", "Indirimli Fiyat");
+        System.out.printf("%-35s%-20s%-20s%-20s\n", "----------------", "----------------", "---------------", "---------------");
         for (Urunler urun : kategori) {
 
-            System.out.printf("\u001B[%sm%-20s%-20.2f%-20.2f%-20.2f\u001B[0m%n",
-                    "37", urunKodu + ") " + urun.getUrunAdi(), urun.getUrunFiyati(), (urun.getUrunFiyati() / 4), (urun.getUrunFiyati() / 4 * 3));
+            System.out.printf("\u001B[%sm%-45s%-20.2f%-20.2f%-10.2f\u001B[0m%n",
+                    "36", urunKodu + ") " + urun.getUrunAdi(), urun.getUrunFiyati() / 3 * 4, (urun.getUrunFiyati() / 3), urun.getUrunFiyati());
             urunKodu++;
         }
 
@@ -546,7 +579,7 @@ public class MusteriMethodlar {
             System.out.println("\nLütfen sepete eklemek istediğiniz ürünü seçiniz");
             int urunNo = scan.nextInt();
             sepeteEkle(mevcutMusteriHesabi, kategori, urunNo);
-            System.out.println("\nAlışverişe devam etmek için 1'e, ödeme işlemleri için 2'ye basınız");
+
         } else {
 
         }
@@ -556,7 +589,7 @@ public class MusteriMethodlar {
 
         LocalDate localDate = LocalDate.now();
         int ayinKacinciGunu = localDate.getDayOfMonth();
-        System.out.println(ayinKacinciGunu);
+
         switch (ayinKacinciGunu) {
             case 1:
             case 2:
@@ -630,6 +663,7 @@ public class MusteriMethodlar {
                     "2 . Bakiye çekme geçmişi\n" +
                     "3 . Biriken bonuslar\n" +
                     "4 . Alınan ürünler geçmişi\n" +
+                    "5 . Yapilan harcama gecmisi" +
                     "Seciminiz : ");
             int secim = intScanner(scan);
 
@@ -679,6 +713,19 @@ public class MusteriMethodlar {
 
                     }
                     break;
+                case 5:
+                    System.out.printf("\u001B[%sm%-20s%-20s%-20s%-20s\u001B[0m%n", "34", "Islem Tarihi :", "Onceki Bakiye",
+                            "Harcanan Tutar", "Guncel Site Bakiyesi");
+
+                    for (Musteri each : mevcutMusteriHesabi.getHarcamaGecmisi()) {
+                        System.out.printf("\u001B[%sm%-20s%-20.2f%-20.2f%-20.2f\u001B[0m%n",
+                                "37", each.getIslemTarihi(), each.getIslemOncesiSiteBakiyesi(), each.getIslemTutari(), each.getSiteBakiyesi());
+
+
+                    }
+                    break;
+
+
                 default:
                     System.out.println("Lutfen gecerli bir tuslama yapiniz.");
                     break;
@@ -705,22 +752,151 @@ public class MusteriMethodlar {
     }
 
 
-    static void hesapAyarlari(Musteri mevcutMusteriHesabi) {
+    static void hesapAyarlari(Scanner scan, Musteri mevcutMusteriHesabi) {
+        scan.nextLine();
         //Caner
-        boolean hesapSilindi = false;
+        int secim;
         do {
-            for (Musteri kullanici : Musteri.getTumKullanicilar()) {
-                if (kullanici.getKullaniciAdi().equals(mevcutMusteriHesabi.getKullaniciAdi())) {
-                    Musteri.getTumKullanicilar().remove(mevcutMusteriHesabi);
-                    hesapSilindi = true;
-                    break;
 
-                } else {
-                    System.out.println("Lutfen silmek istediginiz hesabi kontrol ederek tekrar yaziniz.");
-                }
+            System.out.println("Hesap baskasina devredilemez. Bu sebeple kullanici adinizi degistiremezsiniz !\n" +
+                    "1. Sifreyi degistir\n" +
+                    "2. Telefon numarasini degistir\n" +
+                    "3. Kargo adresini degistir\n" +
+                    "4. Mail adresini degistir\n" +
+                    "5. Hesap sil\n" +
+                    "6. Kullanici menusune don\n" +
+                    "Lutfen hangi islemi yapmak istediginizi seciniz : ");
+            secim = intScanner(scan);
+            switch (secim) {
+                case 1:
+                    boolean sifreDegistiMi = false;
+                    do {
+                        scan.nextLine();
+                        System.out.println("Guvenlik amaciyla lutfen once sifrenizi giriniz");
+                        String eskiSifre = scan.nextLine();
+                        if (mevcutMusteriHesabi.getKullanıcıSifre().equals(eskiSifre)) {
+                            System.out.print("Lutfen yeni sifrenizi belirleyiniz :");
+                            String yeniSifre = scan.nextLine();
+                            mevcutMusteriHesabi.setKullanıcıSifre(yeniSifre);
+                            sifreDegistiMi = true;
+                            System.out.println("Sifreniz basariyla degistirilmistir.Lutfen sifrenizi kimse ila paylasmayin.");
+                        } else {
+                            System.out.print("Sifrenizi yanlis girdiniz !\n" +
+                                    "Lutfen tekrar deneyiniz.");
+                        }
+                    } while (!sifreDegistiMi);
+                    break;
+                case 2:
+                    boolean telNoDegistiMi = false;
+                    do {
+                        scan.nextLine();
+                        System.out.println("Guvenlik amaciyla lutfen once sifrenizi giriniz");
+                        String sifre = scan.nextLine();
+                        if (mevcutMusteriHesabi.getKullanıcıSifre().equals(sifre)) {
+                            System.out.print("Lutfen yeni telefon numaranizi giriniz :");
+                            String yeniTel = scan.nextLine();
+                            mevcutMusteriHesabi.setTel(yeniTel);
+                            telNoDegistiMi = true;
+                            System.out.println("Telefon numaraniz basariyla degistirildi.");
+                        } else {
+                            System.out.print("Sifrenizi yanlis girdiniz !\n" +
+                                    "Lutfen tekrar deneyiniz.");
+                        }
+                    } while (!telNoDegistiMi);
+                    break;
+                case 3:
+                    boolean kargoAdresiDegistiMi = false;
+                    do {
+                        scan.nextLine();
+                        System.out.println("Guvenlik amaciyla lutfen once sifrenizi giriniz");
+                        String sifre = scan.nextLine();
+                        if (mevcutMusteriHesabi.getKullanıcıSifre().equals(sifre)) {
+                            System.out.print("Lutfen yeni kargo adresinizi giriniz :");
+                            String yeniKargoAdresi = scan.nextLine();
+                            mevcutMusteriHesabi.setKargoAdresi(yeniKargoAdresi);
+                            kargoAdresiDegistiMi = true;
+                            System.out.println("Kargo adresiniz basariyla degistirildi.");
+                        } else {
+                            System.out.print("Sifrenizi yanlis girdiniz !\n" +
+                                    "Lutfen tekrar deneyiniz.");
+                        }
+                    } while (!kargoAdresiDegistiMi);
+                    break;
+                case 4:
+                    boolean mailDegistiMi = false;
+                    do {
+                        scan.nextLine();
+                        System.out.println("Guvenlik amaciyla lutfen once sifrenizi giriniz");
+                        String sifre = scan.nextLine();
+                        if (mevcutMusteriHesabi.getKullanıcıSifre().equals(sifre)) {
+                            System.out.print("Lutfen yeni mail adresinizi giriniz :");
+                            String yeniMailAdresi = scan.nextLine();
+                            mevcutMusteriHesabi.setMailAdresi(yeniMailAdresi);
+                            mailDegistiMi = true;
+                            System.out.println("Mail adresiniz basariyla degistirildi.");
+                        } else {
+                            System.out.print("Sifrenizi yanlis girdiniz !\n" +
+                                    "Lutfen tekrar deneyiniz.");
+                        }
+                    } while (!mailDegistiMi);
+                    break;
+                case 5:
+                    boolean hesapSilindi = false;
+
+                    do {
+                        scan.nextLine();
+                        System.out.print("Dikkat hesabiniz silinmek uzere. Bu islemi yapmak istediginizden emin misiniz?\n" +
+                                "Evet ise 1'e\n" +
+                                "Hayir ise 2'ye\n" +
+                                "Basiniz :");
+                        int devamSecimi = intScanner(scan);
+                        if (devamSecimi == 1) {
+                            scan.nextLine();
+                            System.out.println("Guvenlik amaciyla lutfen once sifrenizi giriniz");
+                            String sifre = scan.nextLine();
+                            if (mevcutMusteriHesabi.getKullanıcıSifre().equals(sifre)) {
+
+                                System.out.println("Lutfen hesabinizi neden sildiginizi bizimle paylasin :");
+                                String silmeSebebi = scan.nextLine();
+                                System.out.println("Hesabinizi silmek istediginizden emin misiniz?\n" +
+                                        "Lutfen ekranda gordugunuz yaziyi buyuk kucuk harfe dikkat ederek yaziniz. !eMiNiM!");
+                                String dogrulama = scan.next();
+                                if (dogrulama.equals("!eMiNiM!")) {
+                                    System.out.println("Hesabiniz \n" +
+                                            silmeSebebi + "\n" +
+                                            "gerekcesi ile basariyla silinmistir. Tekrar bekleriz :D" +
+                                            "\n Uygulamadan Cikis yapildi !");
+                                    Musteri.getTumKullanicilar().remove(mevcutMusteriHesabi);
+                                    hesapSilindi = true;
+                                    System.exit(0);
+                                } else {
+                                    System.out.println("Dogrulama kodunu yanlis girdiniz");
+                                    System.out.println("Dogrulama kodunu hatali girdiginiz icin hesap silme gerceklestirilemedi.");
+                                    break;
+
+
+                                }
+
+                            } else {
+                                System.out.print("Sifrenizi yanlis girdiniz !\n" +
+                                        "Sifrenizi yanlis girdiginiz icin hesap silme islemi gerceklestirilemedi !");
+                                break;
+
+
+                            }
+
+
+                        } else {
+
+                        }
+                    } while (!hesapSilindi);
+
+                case 6:
+
+
             }
-        } while (!hesapSilindi);
-        System.out.println("Hesabiniz basariyla silindi. Iyi gunler dileriz.");
+        } while (secim != 6);
+
 
     }
 
@@ -789,10 +965,10 @@ public class MusteriMethodlar {
                 } while (!girisBasarili || counter == 0);
 
             } else {
-                System.out.print("Girdiginiz kullanici hesabi blokelidir !\n" +
+                System.out.print("Girdiginiz kullanici hesabi bulunamadi !\n" +
                         "1 : Farkli bir hesap deneyiniz\n" +
                         "2 : Yeni hesap ac\n" +
-                        "Ana menuye donmek icin herhangi bir tusa basabilirsiniz.\n" +
+                        "Ana menuye donmek icin herhangi bir sayiya basabilirsiniz.\n" +
                         "Lutfen hangi islemi yapmak istediginizi belirtiniz :");
 
                 int secim = intScanner(scan);
@@ -819,36 +995,55 @@ public class MusteriMethodlar {
     static void makbuz(Musteri mevcutMusteriHesabi) {
         // Odeme tamamlandiktan sonra bir makbuz yazilsin.
         // Alinan urunler fiyatlari vs ve toplam miktar vs vs yazsin.
-        System.out.println("Makbuzunuz asagidaki gibidir.");
+        if (musteriHesapBul(mevcutMusteriHesabi.getKullaniciNumarasi()) != null) {
 
-        System.out.printf("\u001B[36m%-15s%-20s%-20s%-20s%-20s\u001B[0m%n", "Islem Tarihi", "Urun Adi", "Alinan Urun Adeti",
-                "Urun Fiyati", "Toplam Fiyat");
+            System.out.println("Makbuzunuz asagidaki gibidir.");
 
-        for (Urunler alinanUrun : mevcutMusteriHesabi.getAlinanUrunGecmisi()) {
+            System.out.printf("\u001B[36m%-15s%-20s%-20s%-20s%-20s\u001B[0m%n", "Islem Tarihi", "Urun Adi", "Alinan Urun Adeti",
+                    "Urun Fiyati", "Toplam Fiyat");
 
-            System.out.printf("\u001B[36m%-15s%-20s%-20d%-20.2f%-20.2f\u001B[0m%n",
-                    alinanUrun.getIslemTarihi(), alinanUrun.getUrunAdi(), alinanUrun.getAlinanUrunAdeti(),
-                    alinanUrun.getUrunFiyati(), (alinanUrun.getAlinanUrunAdeti() * alinanUrun.getUrunFiyati()));
+            for (Urunler alinanUrun : mevcutMusteriHesabi.getAlinanUrunGecmisi()) {
+
+                System.out.printf("\u001B[36m%-15s%-20s%-20d%-20.2f%-20.2f\u001B[0m%n",
+                        alinanUrun.getIslemTarihi(), alinanUrun.getUrunAdi(), alinanUrun.getAlinanUrunAdeti(),
+                        alinanUrun.getUrunFiyati(), (alinanUrun.getAlinanUrunAdeti() * alinanUrun.getUrunFiyati()));
+            }
+        } else {
+            System.out.println("Makbuzunuz asagidaki gibidir.");
+
+            System.out.printf("\u001B[36m%-15s%-20s%-20s%-20s%-20s\u001B[0m%n", "Islem Tarihi", "Urun Adi", "Alinan Urun Adeti",
+                    "Urun Fiyati", "Toplam Fiyat");
+
+            for (Urunler alinanUrun : mevcutMusteriHesabi.getAlinanUrunGecmisi()) {
+
+                System.out.printf("\u001B[36m%-15s%-20s%-20d%-20.2f%-20.2f\u001B[0m%n",
+                        alinanUrun.getIslemTarihi(), alinanUrun.getUrunAdi(), alinanUrun.getAlinanUrunAdeti(),
+                        alinanUrun.getUrunFiyati(), (alinanUrun.getAlinanUrunAdeti() * alinanUrun.getUrunFiyati()));
+            }
         }
         // Yavuz Bey
     }
 
     static void siteBakiyesiIleOde(Scanner scan, double tutar, Musteri mevcutMusteriHesabi) {
         if (mevcutMusteriHesabi.getSiteBakiyesi() >= tutar) {
+            double islemOncesiBakiye = mevcutMusteriHesabi.getSiteBakiyesi();
             mevcutMusteriHesabi.setSiteBakiyesi(mevcutMusteriHesabi.getSiteBakiyesi() - tutar);
-
+            double islemSonrasiBakiye = mevcutMusteriHesabi.getSiteBakiyesi();
             String islemTarihi = LocalDate.now().toString();
 
             for (Urunler sepettekiUrun : mevcutMusteriHesabi.getAlisverisSepeti()) {
                 Urunler alinanUrun = new Urunler(islemTarihi, sepettekiUrun.getUrunAdi(),
                         sepettekiUrun.getUrunFiyati(), sepettekiUrun.getStokAdeti());
                 mevcutMusteriHesabi.getAlinanUrunGecmisi().add(alinanUrun);
+
             }
 
 
             System.out.println("Site Bakiyesinden : " + tutar + "tutarında ödeme yapılmıştır. Kalan Bakiye: "
                     + mevcutMusteriHesabi.getSiteBakiyesi());
 
+            Musteri harcamaGecmisi = new Musteri(islemTarihi, islemOncesiBakiye, tutar, islemSonrasiBakiye);
+            mevcutMusteriHesabi.getHarcamaGecmisi().add(harcamaGecmisi);
             makbuz(mevcutMusteriHesabi);
             mevcutMusteriHesabi.getAlisverisSepeti().clear();
         } else {
@@ -889,6 +1084,10 @@ public class MusteriMethodlar {
         System.out.println("Banka Kartı ile: " + tutar + " TL. tutarında ödeme yapılmıştır.");
 
         makbuz(mevcutMusteriHesabi);
+
+        Musteri harcamaGecmisi = new Musteri(LocalDate.now().toString(), mevcutMusteriHesabi.getSiteBakiyesi(), tutar, mevcutMusteriHesabi.getSiteBakiyesi());
+        mevcutMusteriHesabi.getHarcamaGecmisi().add(harcamaGecmisi);
+
         mevcutMusteriHesabi.getAlisverisSepeti().clear();
     }
 

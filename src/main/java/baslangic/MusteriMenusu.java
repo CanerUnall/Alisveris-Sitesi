@@ -56,7 +56,7 @@ public class MusteriMenusu {
                     break;
                 case 7:
                     //Hesap ayarları icin method olusturmam lazim
-                    MusteriMethodlar.hesapAyarlari(mevcutMusteriHesabi);
+                    MusteriMethodlar.hesapAyarlari(scan,mevcutMusteriHesabi);
 
                     break;
                 case 8:
