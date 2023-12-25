@@ -2,10 +2,10 @@ package baslangic;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+
 import java.time.LocalDate;
 import java.util.*;
 
-//import static baslangic.UrunlerMethodlar.*;
 
 public class MusteriMethodlar {
     /*private static List<Urunler> alisverisSepeti = new ArrayList<>();
