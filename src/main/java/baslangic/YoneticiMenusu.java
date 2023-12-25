@@ -34,7 +34,7 @@ public class YoneticiMenusu {
                     break;
                 case 4:
                     //Sitedeki ürün stogunu görüntülemek icin method olusturmam lazim
-                    YoneticiMethodlar.tumUrunStogunuGoruntule(scan);
+                    YoneticiMethodlar.tumUrunStogunuGoruntule();
 
                     break;
                 case 5:

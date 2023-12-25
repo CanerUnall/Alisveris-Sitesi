@@ -7,6 +7,21 @@ public class Urunler {
     private String urunAdi;
     private double urunFiyati;
     private int stokAdeti;
+    private double indirimsizFiyat;
+    private String indirimsizIsim;
+
+    public String getIndirimsizIsim() {
+        return indirimsizIsim;
+    }
+
+
+    public double getIndirimsizFiyat() {
+        return indirimsizFiyat;
+    }
+
+    public void setUrunFiyati(double urunFiyati) {
+        this.urunFiyati = urunFiyati;
+    }
 
     private String islemTarihi;
     private int alinanUrunAdeti;
@@ -27,6 +42,10 @@ public class Urunler {
         return urunFiyati;
     }
 
+    public void setUrunAdi(String urunAdi) {
+        this.urunAdi = urunAdi;
+    }
+
     public int getStokAdeti() {
         return stokAdeti;
     }
@@ -39,6 +58,8 @@ public class Urunler {
         this.urunAdi = urunAdi;
         this.urunFiyati = urunFiyati;
         this.stokAdeti = stokAdeti;
+        this.indirimsizFiyat = urunFiyati;
+        this.indirimsizIsim= urunAdi;
     }
 
     // islem tarihini belirlemek icin olusturduk

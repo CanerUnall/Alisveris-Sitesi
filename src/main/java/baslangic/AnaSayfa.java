@@ -4,10 +4,11 @@ import java.util.Scanner;
 
 public class AnaSayfa {
     public static void Application() {
+
         Scanner scan = new Scanner(System.in);
         int secim;
         do {
-
+Musteri bosMusteri = new Musteri();
             System.out.println("xxx Sitesine Hoşgeldiniz.\n" +
                     "1. Yeni Müşteri Hesabi Aç.\n" +
                     "2. Müşteri Hesabına Giriş Yap\n" +
@@ -25,7 +26,8 @@ public class AnaSayfa {
 
                     break;
                 case 2:
-                    MusteriMethodlar.musteriGirisi(scan);
+                    //MusteriMethodlar.musteriGirisi(scan);
+                    MusteriMenusu.musteriMenu(scan,bosMusteri);
                     //Müşteri Hesabına Giriş Yapmak icin method olusturmam lazim.
 
                     break;

@@ -104,19 +104,19 @@ public class YoneticiMethodlar {
 
         for (Musteri musteri : Musteri.getTumKullanicilar()) {
             for (Urunler urun : musteri.getAlinanUrunGecmisi()) {
-                System.out.printf("\u001B[33m Islem Tarihi : %8s , Satilan Urun Adi : %5s, Satilan Urun Adeti :%5d Urun Fiyati : %5f%n \u001B[0m",
-                        urun.getIslemTarihi(), urun.getUrunAdi(), urun.getAlinanUrunAdeti(), urun.getUrunFiyati());
+                System.out.printf("\u001B[33m Islem Tarihi : %8s , Satilan Urun Adi : %5s, Satilan Urun Adeti :%5d Urun Fiyati : %5f Toplam Gelir : %5f%n \u001B[0m",
+                        urun.getIslemTarihi(), urun.getUrunAdi(), urun.getAlinanUrunAdeti(), urun.getUrunFiyati(), (urun.getUrunFiyati() * urun.getAlinanUrunAdeti()));
             }
 
         }
 
     }
 
-    static void tumUrunStogunuGoruntule(Scanner scan) {
+    static void tumUrunStogunuGoruntule() {
 
         System.out.printf("\u001B[%sm%-12s%-20s%-20s%-20s\u001B[0m%n", "34", "Urun Adi",
                 "Indirimsiz Fiyat", "Indirim Miktari", "Indirimli Fiyat");
-        for (List<Urunler> herBirKategori :UrunlerMethodlar.tumKategoriler        ) {
+        for (List<Urunler> herBirKategori : UrunlerMethodlar.tumKategoriler) {
             for (Urunler urun : herBirKategori) {
                 System.out.printf("\u001B[%sm%-12s%-20.2f%-20.2f%-20.2f\u001B[0m%n",
                         "37", urun.getUrunAdi(), urun.getUrunFiyati(), (urun.getUrunFiyati() / 4), (urun.getUrunFiyati() / 4 * 3));
@@ -133,29 +133,38 @@ public class YoneticiMethodlar {
     }
 
     static void musteriEngelle(Scanner scan) {
-        scan.nextLine();
-        System.out.print("Lutfen blocklamak istediginiz kullanici adini giriniz : ");
-        String engellenecekKullanici = scan.nextLine();
-        Musteri engellenecekHesap = MusteriMethodlar.musteriHesapBul(engellenecekKullanici);
-        if (engellenecekHesap != null) {
-            Musteri.getEngellenenKullanicilar().add(engellenecekHesap);
-        } else {
-            System.out.print("Engellemek istediginiz kullanici bulunamadi ! \n" +
-                    "Tekrar denemek ister misiniz?\n" +
-                    "Evet ise 1'e\n" +
-                    "Ana menuye donmek isterseniz 2'ye\n" +
-                    "Cikis yapmak isterseniz istediginiz bir tusa basiniz : ");
 
-            int cikisSecim = MusteriMethodlar.intScanner(scan);
-
-            if (cikisSecim == 1) {
-                musteriEngelle(scan);
-            } else if (cikisSecim == 2) {
-                AnaSayfa.Application();
+        System.out.println("Musteri engellemek istediginize emin misiniz?\n" +
+                "Evet ise 1'e\n" +
+                "Hayir ise 2'e basiniz" +
+                "Seciminiz : ");
+        int devamSecimi = MusteriMethodlar.intScanner(scan);
+        if (devamSecimi == 1) {
+            scan.nextLine();
+            System.out.print("Lutfen blocklamak istediginiz kullanici adini giriniz : ");
+            String engellenecekKullanici = scan.nextLine();
+            Musteri engellenecekHesap = MusteriMethodlar.musteriHesapBul(engellenecekKullanici);
+            if (engellenecekHesap != null) {
+                Musteri.getEngellenenKullanicilar().add(engellenecekHesap);
             } else {
-                System.exit(0);
+                System.out.print("Engellemek istediginiz kullanici bulunamadi ! \n" +
+                        "Tekrar denemek ister misiniz?\n" +
+                        "Evet ise 1'e\n" +
+                        "Ana menuye donmek isterseniz 2'ye\n" +
+                        "Cikis yapmak isterseniz istediginiz bir tusa basiniz : ");
+
+                int cikisSecim = MusteriMethodlar.intScanner(scan);
+
+                if (cikisSecim == 1) {
+                    musteriEngelle(scan);
+                } else if (cikisSecim == 2) {
+                    AnaSayfa.Application();
+                } else {
+                    System.exit(0);
+                }
             }
         }
+
     }
 
     static int kadinMusteriSayisi() {

@@ -1,5 +1,6 @@
 package baslangic;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -11,7 +12,7 @@ public class UrunlerMethodlar {
         tumKategoriler();;
     }*/
     static List<List<Urunler>> tumKategoriler = new ArrayList<>();
-
+    static List<Urunler> satilanUrunler = new ArrayList<>();
     static List<Urunler> kirtasiye = new ArrayList<>();
     static List<Urunler> elektronik = new ArrayList<>();
     static List<Urunler> manav = new ArrayList<>();
@@ -22,6 +23,108 @@ public class UrunlerMethodlar {
     static List<Urunler> otoAksesuar = new ArrayList<>();
     static List<Urunler> hayvanUrunleri = new ArrayList<>();
     static List<Urunler> kozmetik = new ArrayList<>();
+
+    static void indirimliFiyat(List<Urunler> kategori) {
+
+        for (Urunler urun : kategori) {
+            urun.setUrunAdi(urun.getUrunAdi() + "\u001B[31m Indirim \u001B[0m");
+            urun.setUrunFiyati(urun.getUrunFiyati() / 4 * 3);
+
+        }
+    }
+
+    static void indirimsizFiyat(List<Urunler> kategori) {
+        for (Urunler urun : kategori) {
+            urun.setUrunAdi(urun.getIndirimsizIsim());
+            urun.setUrunFiyati(urun.getIndirimsizFiyat());
+        }
+    }
+
+    static boolean elekronikUrunleriIndirimdemi = false;
+    static boolean kirtasiyeUrunleriIndirimdemi = false;
+    static boolean manavUrunleriIndirimdemi = false;
+    static boolean tekstilUrunleriIndirimdemi = false;
+    static boolean kisiselBakimUrunleriIndirimdemi = false;
+    static boolean hirdavatUrunleriIndirimdemi = false;
+    static boolean sporUrunleriIndirimdemi = false;
+    static boolean otoAksesuarUrunleriIndirimdemi = false;
+    static boolean hayvanUrunleriUrunleriIndirimdemi = false;
+    static boolean kozmetikUrunleriIndirimdemi = false;
+
+    static void indirimiAktiflestir() {
+        int ayinKaci = LocalDate.now().getDayOfMonth();
+
+        if (ayinKaci == 1 || ayinKaci == 2 || ayinKaci == 3) {
+            elekronikUrunleriIndirimdemi = true;
+            UrunlerMethodlar.indirimliFiyat(UrunlerMethodlar.elektronik);
+        } else {
+            UrunlerMethodlar.indirimsizFiyat(UrunlerMethodlar.elektronik);
+            elekronikUrunleriIndirimdemi = false;
+        }
+        if (ayinKaci == 4 || ayinKaci == 5 || ayinKaci == 6) {
+            kirtasiyeUrunleriIndirimdemi = true;
+            UrunlerMethodlar.indirimliFiyat(UrunlerMethodlar.kirtasiye);
+        } else {
+            UrunlerMethodlar.indirimsizFiyat(UrunlerMethodlar.kirtasiye);
+            kirtasiyeUrunleriIndirimdemi = false;
+        }
+        if (ayinKaci == 7 || ayinKaci == 8 || ayinKaci == 9) {
+            manavUrunleriIndirimdemi = true;
+            UrunlerMethodlar.indirimliFiyat(UrunlerMethodlar.manav);
+        } else {
+            UrunlerMethodlar.indirimsizFiyat(UrunlerMethodlar.manav);
+            manavUrunleriIndirimdemi = false;
+        }
+        if (ayinKaci == 10 || ayinKaci == 11 || ayinKaci == 12) {
+            tekstilUrunleriIndirimdemi = true;
+            UrunlerMethodlar.indirimliFiyat(UrunlerMethodlar.tekstil);
+        } else {
+            UrunlerMethodlar.indirimsizFiyat(UrunlerMethodlar.tekstil);
+            tekstilUrunleriIndirimdemi = false;
+        }
+        if (ayinKaci == 13 || ayinKaci == 14 || ayinKaci == 15) {
+            kisiselBakimUrunleriIndirimdemi = true;
+            UrunlerMethodlar.indirimliFiyat(UrunlerMethodlar.kisiselBakim);
+        } else {
+            UrunlerMethodlar.indirimsizFiyat(UrunlerMethodlar.kisiselBakim);
+            kisiselBakimUrunleriIndirimdemi = false;
+        }
+        if (ayinKaci == 16 || ayinKaci == 17 || ayinKaci == 18) {
+            hirdavatUrunleriIndirimdemi = true;
+            UrunlerMethodlar.indirimliFiyat(UrunlerMethodlar.hirdavat);
+        } else {
+            UrunlerMethodlar.indirimsizFiyat(UrunlerMethodlar.hirdavat);
+            hirdavatUrunleriIndirimdemi = false;
+        }
+        if (ayinKaci == 19 || ayinKaci == 20 || ayinKaci == 21) {
+            sporUrunleriIndirimdemi = true;
+            UrunlerMethodlar.indirimliFiyat(UrunlerMethodlar.spor);
+        } else {
+            UrunlerMethodlar.indirimsizFiyat(UrunlerMethodlar.spor);
+            sporUrunleriIndirimdemi = false;
+        }
+        if (ayinKaci == 22 || ayinKaci == 23 || ayinKaci == 24) {
+            otoAksesuarUrunleriIndirimdemi = true;
+            UrunlerMethodlar.indirimliFiyat(UrunlerMethodlar.otoAksesuar);
+        } else {
+            UrunlerMethodlar.indirimsizFiyat(UrunlerMethodlar.otoAksesuar);
+            otoAksesuarUrunleriIndirimdemi = false;
+        }
+        if (ayinKaci == 25 || ayinKaci == 26 || ayinKaci == 27) {
+            hayvanUrunleriUrunleriIndirimdemi = true;
+            UrunlerMethodlar.indirimliFiyat(UrunlerMethodlar.hayvanUrunleri);
+        } else {
+            hayvanUrunleriUrunleriIndirimdemi = false;
+            UrunlerMethodlar.indirimsizFiyat(UrunlerMethodlar.hayvanUrunleri);
+        }
+        if (ayinKaci == 28 || ayinKaci == 29 || ayinKaci == 30 || ayinKaci == 31) {
+            kozmetikUrunleriIndirimdemi = true;
+            UrunlerMethodlar.indirimliFiyat(UrunlerMethodlar.kozmetik);
+        } else {
+            UrunlerMethodlar.indirimsizFiyat(UrunlerMethodlar.kozmetik);
+            kozmetikUrunleriIndirimdemi = false;
+        }
+    }
 
     public static void tumKategoriler() {
         //urunAdi,  urunFiyati, stokAdeti larini eklemeyi unutma
@@ -34,7 +137,7 @@ public class UrunlerMethodlar {
         tumKategoriler.add(spor);
         tumKategoriler.add(otoAksesuar);
         tumKategoriler.add(hayvanUrunleri);
-        tumKategoriler.add( kozmetik);
+        tumKategoriler.add(kozmetik);
     }
 
     public static void kirtasiye() {

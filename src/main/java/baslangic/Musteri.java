@@ -4,15 +4,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Musteri {
+    List<Urunler> misafirAlinanUrunler = new ArrayList<>();
     private double kazanilanBonus;
     private String kullaniciAdi;
     private String kullanıcıSifre;
     private int kullaniciYasi;
     private String kullaniciCinsiyeti;
     private String bankaKartiNumarasi;
+    private String sonKullanmaTarihi;
     private String bankaKartiGuvenlikKodu;
     private String kargoAdresi;
     private String tel;
+
+    public String getSonKullanmaTarihi() {
+        return sonKullanmaTarihi;
+    }
+
     private String mailAdresi;
     private double siteBakiyesi;
     private String kullaniciNumarasi;
@@ -45,6 +52,11 @@ public class Musteri {
     private List<Musteri> bakiyeCekmeGecmisi = new ArrayList<>();
     private List<Urunler> alinanUrunGecmisi = new ArrayList<>();
     private List<Musteri> bonusGecmisi = new ArrayList<>();
+    private List<Musteri> harcamaGecmisi = new ArrayList<>();
+
+    public List<Musteri> getHarcamaGecmisi() {
+        return harcamaGecmisi;
+    }
 
     public List<Urunler> getAlisverisSepeti() {
         return alisverisSepeti;
@@ -54,8 +66,24 @@ public class Musteri {
         return bakiyeYuklemeGecmisi;
     }
 
+    public void setTel(String tel) {
+        this.tel = tel;
+    }
+
     public List<Musteri> getBakiyeCekmeGecmisi() {
         return bakiyeCekmeGecmisi;
+    }
+
+    public void setKullanıcıSifre(String kullanıcıSifre) {
+        this.kullanıcıSifre = kullanıcıSifre;
+    }
+
+    public void setKargoAdresi(String kargoAdresi) {
+        this.kargoAdresi = kargoAdresi;
+    }
+
+    public void setMailAdresi(String mailAdresi) {
+        this.mailAdresi = mailAdresi;
     }
 
     public List<Urunler> getAlinanUrunGecmisi() {
@@ -139,10 +167,11 @@ public class Musteri {
     }
 
     public Musteri(String kullaniciAdi, String kullaniciSifre, int kullaniciYasi,
-                   String kullaniciCinsiyeti, String bankaKartiNumarasi, String bankaKartiGuvenlikKodu,
+                   String kullaniciCinsiyeti, String bankaKartiNumarasi, String sonKullanmaTarihi, String bankaKartiGuvenlikKodu,
                    String kargoAdresi, String tel, String mailAdresi, double siteBakiyesi, double musteriBonus,
                    String kullaniciNumarasi, List<Urunler> alisverisSepeti, List<Urunler> alinanUrunGecmisi,
-                   List<Musteri> bakiyeCekmeGecmisi, List<Musteri> bakiyeYuklemeGecmisi, List<Musteri> bonusGecmisi) {
+                   List<Musteri> bakiyeCekmeGecmisi, List<Musteri> bakiyeYuklemeGecmisi,
+                   List<Musteri> bonusGecmisi, List<Musteri> harcamaGecmisi) {
 
         this.kullaniciAdi = kullaniciAdi;
         this.kullanıcıSifre = kullaniciSifre;
@@ -161,15 +190,17 @@ public class Musteri {
         this.bakiyeCekmeGecmisi = bakiyeCekmeGecmisi;
         this.bakiyeYuklemeGecmisi = bakiyeYuklemeGecmisi;
         this.bonusGecmisi = bonusGecmisi;
+        this.harcamaGecmisi = harcamaGecmisi;
+        this.sonKullanmaTarihi = sonKullanmaTarihi;
 
     }
 
     //islem gecmisi icin olusturduk
-    public Musteri(String islemTarih,double islemOncesiSiteBakiyesi, double islemTutari, double siteBakiyesi) {
+    public Musteri(String islemTarih, double islemOncesiSiteBakiyesi, double islemTutari, double siteBakiyesi) {
         this.islemTarihi = islemTarih;
         this.islemTutari = islemTutari;
         this.siteBakiyesi = siteBakiyesi;
-        this.islemOncesiSiteBakiyesi=islemOncesiSiteBakiyesi;
+        this.islemOncesiSiteBakiyesi = islemOncesiSiteBakiyesi;
     }
 
     //bonus gecmısı ıcın olusturduk
@@ -179,8 +210,14 @@ public class Musteri {
         this.musteriBonus = musteriBonus;
     }
 
+    public Musteri(List<Urunler> alisverisSepeti, List<Urunler> alinanUrunGecmisi) {
+        this.alinanUrunGecmisi = alinanUrunGecmisi;
+        this.alisverisSepeti = alisverisSepeti;
+    }
+
 
     public Musteri() {
+
     }
 }
 

@@ -15,12 +15,12 @@ public class Runner {
         UrunlerMethodlar.hayvanUrunleri();
         UrunlerMethodlar.tumKategoriler();
         YoneticiMethodlar.tumYoneticiler();
+
     }
 
     public static void main(String[] args) {
-
-        AnaSayfa start = new AnaSayfa();
-        start.Application();
+        UrunlerMethodlar.indirimiAktiflestir();
+        AnaSayfa.Application();
         //buraya
     }
 }
