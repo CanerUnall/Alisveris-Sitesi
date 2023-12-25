@@ -8,32 +8,7 @@ import java.util.*;
 
 
 public class MusteriMethodlar {
-    /*private static List<Urunler> alisverisSepeti = new ArrayList<>();
-    private static List<Musteri> bakiyeYuklemeGecmisi = new ArrayList<>();
-    private static List<Musteri> bakiyeCekmeGecmisi = new ArrayList<>();
-    private static List<Urunler> alinanUrunGecmisi = new ArrayList<>();
-    private static List<Musteri> bonusGecmisi = new ArrayList<>();
 
-    public static List<Urunler> getAlisverisSepeti() {
-        return alisverisSepeti;
-    }
-
-    public static List<Musteri> getBakiyeYuklemeGecmisi() {
-        return bakiyeYuklemeGecmisi;
-    }
-
-    public static List<Musteri> getBakiyeCekmeGecmisi() {
-        return bakiyeCekmeGecmisi;
-    }
-
-    public static List<Urunler> getAlinanUrunGecmisi() {
-        return alinanUrunGecmisi;
-    }
-
-    public static List<Musteri> getBonusGecmisi() {
-        return bonusGecmisi;
-    }
-*/
     public static int intScanner(Scanner scan) {
         while (true) {
             try {
@@ -194,24 +169,6 @@ public class MusteriMethodlar {
 
     }
 
-    /* public Musteri musteriHesabinaGiris(LinkedList<Musteri> musteriList) {
-         System.out.println("musteri Hesabina giris yapmak icin Kullanici adinizi ve sekiz haneden olusan sifrenizi giriniz");
-         String musteriHesabi = stringScanner(scan);
-         for (Musteri mus : musteriList) {
-             if (mus.getKullaniciAdi().equals(getKullaniciAdi()) && mus.getKullanıcıSifre().equals(getKullanıcıSifre())) {
-                 if (mus.getKullaniciCinsiyeti().equals("Kadin")) {
-                     System.out.println(getKullaniciAdi() + " Hanim Hesabiniza hosgeldiniz keyifli alisveriler");
-                 } else System.out.println(getKullaniciAdi() + " Bey Hesabiniza hosgeldiniz keyifli alisveriler ");
-
-                 return mus;
-             } else {
-                 System.out.println("lutfen kullanici adinizi ve sifrenizi kontrol edip tekrar deneyiniz");
-             }
-         }
-         return null;
-     }
-
- }*/
     public static void urunleriListele(List<Urunler> urunListesi, Musteri mevcutMusteriHesabi) {
         Scanner scan = new Scanner(System.in);
         int urunNo = 0;
@@ -237,11 +194,7 @@ public class MusteriMethodlar {
     }
 
     static void urunleriGoruntule(Scanner scan, Musteri mevcutMusteriHesabi) {
-        /*1- Burada 10 farklı kategori olacak
-        Kullanıcı katogorılerden birini secince 10 farklı ürün ve fiyatını görecek.
-        2- Ürünleri sepete ekleyebilecek.
-        3- Ödeme en sonda sepetten devam edilerek yapılacak.*/
-        //urunleri UrunMethodlar classindan cagirmalisin.
+
         System.out.println("Lutfen kategori seciniz.\n" +
                 "1. Kırtasiye\n" +
                 "2. Manav\n" +
@@ -449,7 +402,6 @@ public class MusteriMethodlar {
 
 
             }
-            // Diğer durumlar için bir şey yapılabiliriz
 
         }
     }
@@ -651,11 +603,6 @@ public class MusteriMethodlar {
 
 
     static void hesapGecmisiniGoruntule(Musteri mevcutMusteriHesabi, Scanner scan) {
-
-        /*Bakiye yükleme geçmişi
-        Bakiye çekme geçmişi
-        Biriken bonuslar/Müsteri alışveriş yaptıkca bonus kazansın
-        Alınan ürünler geçmişi*/
 
         do {
             System.out.print("Hangi Islem Gecmisini sorgulamak istersiniz_\n" +
@@ -923,9 +870,7 @@ public class MusteriMethodlar {
     }
 
     static void musteriGirisi(Scanner scan) {
-        //burada kontrol saglandiktan sonra 'mevcutMusteriHesabi' diye bir degisken olusturulacak.
-        //buradan musteriMenu methodu cagrilacak
-        //kullanici adi dogru ama sifre 5 defa yanlis ise kullanici engellensin.
+
         scan.nextLine();
         System.out.print("Lutfen kullanici numaranizi giriniz :");
 
@@ -958,7 +903,6 @@ public class MusteriMethodlar {
                                 "Hesabiniz bloke edildi !\n" +
                                 "Lutfen musteri hizmetlerine ulasiniz.");
 
-                        //eger kullanici bloke olduysa giriste onun uyarisini gorsun. bunu ayarla!
                     }
 
 
@@ -1010,16 +954,24 @@ public class MusteriMethodlar {
             }
         } else {
             System.out.println("Makbuzunuz asagidaki gibidir.");
-
+            double toplam = 0;
             System.out.printf("\u001B[36m%-15s%-20s%-20s%-20s%-20s\u001B[0m%n", "Islem Tarihi", "Urun Adi", "Alinan Urun Adeti",
                     "Urun Fiyati", "Toplam Fiyat");
+            System.out.println("--------------------------------------------------------------------------------------");
+            for (Urunler sepet : mevcutMusteriHesabi.getAlisverisSepeti()) {
 
-            for (Urunler alinanUrun : mevcutMusteriHesabi.getAlinanUrunGecmisi()) {
-
-                System.out.printf("\u001B[36m%-15s%-20s%-20d%-20.2f%-20.2f\u001B[0m%n",
-                        alinanUrun.getIslemTarihi(), alinanUrun.getUrunAdi(), alinanUrun.getAlinanUrunAdeti(),
-                        alinanUrun.getUrunFiyati(), (alinanUrun.getAlinanUrunAdeti() * alinanUrun.getUrunFiyati()));
+                System.out.printf("%-15s%-20s %-20d %-20.2f %-20.2f%n",
+                        LocalDate.now().toString(), sepet.getUrunAdi(), sepet.getStokAdeti(), sepet.getUrunFiyati(),
+                        sepet.getStokAdeti() * sepet.getUrunFiyati());
+                toplam += (sepet.getStokAdeti() * sepet.getUrunFiyati());
             }
+
+
+            System.out.println("--------------------------------------------------------------------------------------");
+            System.out.printf("\u001B[33m%-67s %-20s%n\u001B[0m",
+                    "Toplam Fiyat", toplam);
+
+
         }
         // Yavuz Bey
     }
