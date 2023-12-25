@@ -1,18 +1,24 @@
 package baslangic;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class MisafirMenu {
     public static void misafirMenu() {
-        Musteri misafirHesap = new Musteri();
+        List<baslangic.Urunler> misafirSepet = new ArrayList<>();
+        List<baslangic.Urunler> misafirAlinanUrunGecmisi = new ArrayList<>();
+
+        Musteri misafirHesap = new Musteri(misafirSepet, misafirAlinanUrunGecmisi);
+
         Scanner scan = new Scanner(System.in);
         int secim;
         do {
 
             System.out.println("xxx Sitesine Hosgeldiniz.\n" +
                     "1. Ürünleri görüntüle\n" +
-                    "2. Alışveriş sepetini görüntüle\n" +
-                    "3. Ödeme noktasına ilerle.");
+                    "2. Alışveriş sepetini görüntüle\n"
+            );
             secim = scan.nextInt();
 
             switch (secim) {
@@ -23,11 +29,6 @@ public class MisafirMenu {
                     break;
                 case 2:
                     MusteriMethodlar.sepetiGoruntule(scan, misafirHesap);
-
-                    break;
-                case 3:
-
-                   // MusteriMethodlar.misafirBankaKartiIleOde(misafirHesap,scan,misafirHesap.getAlisverisSepeti().);
 
                     break;
                 default:

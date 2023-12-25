@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Musteri {
-    List<Urunler> misafirAlinanUrunler = new ArrayList<>();
+
     private double kazanilanBonus;
     private String kullaniciAdi;
     private String kullanıcıSifre;
@@ -192,7 +192,6 @@ public class Musteri {
         this.bonusGecmisi = bonusGecmisi;
         this.harcamaGecmisi = harcamaGecmisi;
         this.sonKullanmaTarihi = sonKullanmaTarihi;
-
     }
 
     //islem gecmisi icin olusturduk
@@ -213,6 +212,9 @@ public class Musteri {
     public Musteri(List<Urunler> alisverisSepeti, List<Urunler> alinanUrunGecmisi) {
         this.alinanUrunGecmisi = alinanUrunGecmisi;
         this.alisverisSepeti = alisverisSepeti;
+
+
+
     }
 
 
