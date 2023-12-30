@@ -166,6 +166,7 @@ public class Musteri {
         return islemTutari;
     }
 
+
     public Musteri(String kullaniciAdi, String kullaniciSifre, int kullaniciYasi,
                    String kullaniciCinsiyeti, String bankaKartiNumarasi, String sonKullanmaTarihi, String bankaKartiGuvenlikKodu,
                    String kargoAdresi, String tel, String mailAdresi, double siteBakiyesi, double musteriBonus,
@@ -193,8 +194,6 @@ public class Musteri {
         this.harcamaGecmisi = harcamaGecmisi;
         this.sonKullanmaTarihi = sonKullanmaTarihi;
     }
-
-    //islem gecmisi icin olusturduk
     public Musteri(String islemTarih, double islemOncesiSiteBakiyesi, double islemTutari, double siteBakiyesi) {
         this.islemTarihi = islemTarih;
         this.islemTutari = islemTutari;
@@ -202,24 +201,16 @@ public class Musteri {
         this.islemOncesiSiteBakiyesi = islemOncesiSiteBakiyesi;
     }
 
-    //bonus gecmısı ıcın olusturduk
     public Musteri(double kazanilanBonus, String islemTarih, double musteriBonus) {
         this.islemTarihi = islemTarih;
         this.kazanilanBonus = kazanilanBonus;
         this.musteriBonus = musteriBonus;
     }
-
     public Musteri(List<Urunler> alisverisSepeti, List<Urunler> alinanUrunGecmisi) {
         this.alinanUrunGecmisi = alinanUrunGecmisi;
         this.alisverisSepeti = alisverisSepeti;
-
-
-
     }
-
-
     public Musteri() {
-
     }
 }
 

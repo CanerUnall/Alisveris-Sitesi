@@ -3,64 +3,55 @@ package baslangic;
 import java.util.Scanner;
 
 public class YoneticiMenusu {
-    public static void yoneticiMenu() {
+    public static void yoneticiMenu(Yonetici mevcutYoneticiHesabi) {
         Scanner scan = new Scanner(System.in);
         int secim;
         do {
-
-            System.out.println("Hesabiniza Basariyla Giris Yapildi.\n" +
+            System.out.println();
+            System.out.print("\u001B[35mSayın " + mevcutYoneticiHesabi.getYoneticiID() + " Hoş Geldiniz !\n" +
+                    "Hesabınıza Başarıyla Giriş Yapıldı\n" +
                     "1. Müşteri Sayısı\n" +
                     "2. Tüm Müşteri İsimleri\n" +
-                    "3. Satılan ürünleri görüntülesin\n" +
-                    "4. Sitedeki ürün stogunu görüntülesin\n" +
-                    "5. Müsteri istatistiklerini görüntüle\n" +
-                    "6. Kullanici engelle\n" +
+                    "3. Satılan Ürünleri Görüntüle\n" +
+                    "4. Ürün Stoğunu Görüntüle\n" +
+                    "5. Müsteri İstatistiklerini Görüntüle\n" +
+                    "6. Kullanıcı Engelle\n" +
                     "7. Çıkış Yap\n" +
-                    "Lutfen seciminizi yapiniz.");
-            secim = scan.nextInt();
+                    "Lütfen Seçiminizi Yapınız : \u001B[0m");
+            secim = MusteriMethodlar.intScanner(scan);
 
             switch (secim) {
                 case 1:
-                    //Müşteri Sayısı görüntülemek icin bir method olusturmam lazim.
                     YoneticiMethodlar.toplamMusteriSayisi();
                     break;
                 case 2:
-                    // Tüm Müşteri İsimleri gormek icin method olusturmam lazim.
                     YoneticiMethodlar.tumMusteriIsimleri();
                     break;
                 case 3:
-                    //Satılan ürünleri görüntülemek icin gerekli methodlari olusturmam lazim
                     YoneticiMethodlar.satilanUrunler();
                     break;
                 case 4:
-                    //Sitedeki ürün stogunu görüntülemek icin method olusturmam lazim
                     YoneticiMethodlar.tumUrunStogunuGoruntule();
-
                     break;
                 case 5:
-                    //Müsteri istatistiklerini görüntüleyebilmek icin method olusturmam lazim
                     YoneticiMethodlar.musteriIstatikleriniGoruntule();
-
                     break;
                 case 6:
                     YoneticiMethodlar.musteriEngelle(scan);
+                    break;
                 case 7:
-                    System.out.println("Cikis yapiliyor");
+                    System.out.println("\u001B[31mÇıkıs Yapılıyor !\u001B[0m");
                     break;
                 default:
-                    System.out.println("Gecersiz bir tuslama yaptuniz. Lutfen gecerli bir secenek seciniz.");
+                    System.out.println("\u001B[31mGeçersiz Bir Tuşlama Yaptınız. Lütfen Geçerli Bir Seçim Giriniz.\u001B[0m");
                     break;
             }
-
-            System.out.println("Yeni bir islem yapmak ister misiniz? evet ise 1, hayir ise 2 yi seciniz.");
-
-            int devamMi = scan.nextInt();
-
+            scan.nextLine();
+            System.out.print("\nYeni Bir İşlem Yapmak İster Misiniz? Evet ise 1, Hayır ise 2'yi Seçiniz : ");
+            int devamMi = MusteriMethodlar.intScanner(scan);
             if (devamMi != 1) {
                 break;
             }
-
-        } while (secim != 6);
-
+        } while (secim != 7);
     }
 }

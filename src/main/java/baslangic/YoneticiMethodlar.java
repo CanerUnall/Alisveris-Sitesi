@@ -9,24 +9,22 @@ public class YoneticiMethodlar {
     static List<Yonetici> tumYoneticiler = new ArrayList<>();
 
     public static void tumYoneticiler() {
-        tumYoneticiler.add(new Yonetici("Caner", "sifreyok"));
-        tumYoneticiler.add(new Yonetici());
-        tumYoneticiler.add(new Yonetici());
-        tumYoneticiler.add(new Yonetici());
-        tumYoneticiler.add(new Yonetici());
-        tumYoneticiler.add(new Yonetici());
-        tumYoneticiler.add(new Yonetici());
-        tumYoneticiler.add(new Yonetici());
-        tumYoneticiler.add(new Yonetici());
-        tumYoneticiler.add(new Yonetici());
-
-
+        tumYoneticiler.add(new Yonetici("Mustafa Uzun", "12345"));
+        tumYoneticiler.add(new Yonetici("Mustafa Ubeyde Kayhan", ""));
+        tumYoneticiler.add(new Yonetici("Ömer Faruk Osmanoğlu", "123123"));
+        tumYoneticiler.add(new Yonetici("Cemal Topal", ""));
+        tumYoneticiler.add(new Yonetici("Efehan Akçel", ""));
+        tumYoneticiler.add(new Yonetici("Görkem Turhan", ""));
+        tumYoneticiler.add(new Yonetici("Rümeysa Dağtekin", ""));
+        tumYoneticiler.add(new Yonetici("Yavuz Yılmaz", ""));
+        tumYoneticiler.add(new Yonetici("Caner Ünal", ""));
+        tumYoneticiler.add(new Yonetici("Büşra İdil", ""));
+        tumYoneticiler.add(new Yonetici("Selim Deniz", ""));
     }
 
-    private static Yonetici yoneticiHesapBul(String yoneticiNumarasi) {
-        //hata vermemesi icin oylesine bir hesap olusturduk. sen kendin dogru hesabi olustur.
+    private static Yonetici yoneticiHesapBul(String yoneticiID) {
         for (Yonetici yoneticiHesabi : tumYoneticiler) {
-            if (yoneticiHesabi.getYoneticiID().equals(yoneticiNumarasi)) {
+            if (yoneticiHesabi.getYoneticiID().equals(yoneticiID)) {
                 return yoneticiHesabi;
             }
         }
@@ -34,24 +32,23 @@ public class YoneticiMethodlar {
     }
 
     static void yoneticiGirisi(Scanner scan) {
-        //burada kontrol saglandiktan sonra 'mevcutYoneticiHesabi' diye bir degisken olusturulacak.
-        //kontroller saglandiktan sonra yoneticiMenu buradan cagrilacak
+
         scan.nextLine();
-        System.out.print("Lutfen Yonetici ID nizi giriniz : ");
+        System.out.print("\nLütfen Yönetici ID nizi Giriniz : ");
         String yoneticiId = scan.nextLine();
         Yonetici mevcutYoneticiHesabi = yoneticiHesapBul(yoneticiId);
         if (mevcutYoneticiHesabi != null) {
-            System.out.print("Sifrenizi giriniz : ");
+            System.out.print("Şifrenizi Giriniz : ");
             String girilenSifre = scan.nextLine();
             if (mevcutYoneticiHesabi.getYoneticiSifre().equals(girilenSifre)) {
-                System.out.println("Yonetici hesabina basariyla giris yapildi.");
-                YoneticiMenusu.yoneticiMenu();
+                System.out.println();
+                YoneticiMenusu.yoneticiMenu(mevcutYoneticiHesabi);
             } else {
-                System.out.println("Sifreniz yanlis !" +
-                        "Tekrar denemek ister misiniz?\n" +
+                System.out.print("Şifreniz Yanlış !" +
+                        "Tekrar Denemek İster Misiniz ?\n" +
                         "Evet ise 1'e\n" +
-                        "Ana menuye donmek isterseniz 2'ye\n" +
-                        "Cikis yapmak isterseniz istediginiz bir tusa basiniz : ");
+                        "Ana Menüye Dönmek İsterseniz 2'ye\n" +
+                        "Çıkış Yapmak İsterseniz Herhangi Bir Tuşa Basınız : ");
 
                 int cikisSecim = MusteriMethodlar.intScanner(scan);
 
@@ -65,11 +62,11 @@ public class YoneticiMethodlar {
             }
 
         } else {
-            System.out.println("Hesap Bulunamadi !" +
-                    "Tekrar denemek ister misiniz?\n" +
+            System.out.print("Hesap Bulunamadı !" +
+                    "Tekrar Denemek İster Misiniz ?\n" +
                     "Evet ise 1'e\n" +
-                    "Ana menuye donmek isterseniz 2'ye\n" +
-                    "Cikis yapmak isterseniz istediginiz bir tusa basiniz : ");
+                    "Ana Menüye Dönmek İsterseniz 2'ye\n" +
+                    "Çıkış Yapmak İsterseniz Herhangi Bir Tuşa Basınız : ");
 
             int cikisSecim = MusteriMethodlar.intScanner(scan);
 
@@ -87,84 +84,93 @@ public class YoneticiMethodlar {
     static void toplamMusteriSayisi() {
 
         int toplamKullaniciSayisi = Musteri.getTumKullanicilar().size() + Musteri.getEngellenenKullanicilar().size();
-        System.out.printf("\u001B[33m Toplam Kullanici Sayisi:%8d , Aktif Kullanici Sayisi : %5d, Engellenen Kullanici Sayisi :%5d%n \u001B[0m",
+        System.out.printf("\u001B[33m Toplam Kullanıcı Sayısı:%8d , Aktif Kullanıcı Sayısı : %5d, Engellenen Kullanıcı Sayısı :%5d%n \u001B[0m",
                 toplamKullaniciSayisi, Musteri.getTumKullanicilar().size(), Musteri.getEngellenenKullanicilar().size());
         System.out.println();
 
     }
 
     static void tumMusteriIsimleri() {
-        System.out.printf("\u001B[33m Kullanici Isimleri:%n \u001B[0m");
+        System.out.printf("\u001B[33m Kullanıcı İsimleri : %n \u001B[0m");
         for (Musteri musteri : Musteri.getTumKullanicilar()) {
             System.out.printf("%s%n", musteri.getKullaniciAdi());
+            System.out.println();
         }
     }
 
     static void satilanUrunler() {
 
+
+        System.out.printf("| %-15s | %-35s | %-15s | %-15s | %-20s |\n", "İşlem Tarihi", "Satılan Ürün Adı", "Adet", "Ürün Fiyatı", "Toplam Gelir");
+        System.out.println("-------------------------------------------------------------------------------------");
+
         for (Musteri musteri : Musteri.getTumKullanicilar()) {
             for (Urunler urun : musteri.getAlinanUrunGecmisi()) {
-                System.out.printf("\u001B[33m Islem Tarihi : %8s , Satilan Urun Adi : %5s, Satilan Urun Adeti :%5d Urun Fiyati : %5f Toplam Gelir : %5f%n \u001B[0m",
+                System.out.printf("| %-15s | %-35s | %-15d | %-15.2f | %-20.2f |\n",
                         urun.getIslemTarihi(), urun.getUrunAdi(), urun.getAlinanUrunAdeti(), urun.getUrunFiyati(), (urun.getUrunFiyati() * urun.getAlinanUrunAdeti()));
             }
-
         }
+
+        System.out.println("-------------------------------------------------------------------------------------");
+
 
     }
 
     static void tumUrunStogunuGoruntule() {
 
-        System.out.printf("\u001B[%sm%-12s%-20s%-20s%-20s\u001B[0m%n", "34", "Urun Adi",
-                "Indirimsiz Fiyat", "Indirim Miktari", "Indirimli Fiyat");
+        System.out.printf("\u001B[%sm%-35s%-20s%-20s\u001B[0m%n", "34", "Ürün Adı",
+                "Ürün Fiyatı", "Stok Adeti");
         for (List<Urunler> herBirKategori : UrunlerMethodlar.tumKategoriler) {
             for (Urunler urun : herBirKategori) {
-                System.out.printf("\u001B[%sm%-12s%-20.2f%-20.2f%-20.2f\u001B[0m%n",
-                        "37", urun.getUrunAdi(), urun.getUrunFiyati(), (urun.getUrunFiyati() / 4), (urun.getUrunFiyati() / 4 * 3));
+                System.out.printf("\u001B[%sm%-35s%-20.2f%-20d\u001B[0m%n",
+                        "37", urun.getUrunAdi(), urun.getUrunFiyati(), urun.getStokAdeti());
             }
         }
-
     }
 
     static void musteriIstatikleriniGoruntule() {
         int toplamKullaniciSayisi = Musteri.getTumKullanicilar().size() + Musteri.getEngellenenKullanicilar().size();
-        System.out.printf("\u001B[33m Toplam Kullanici Sayisi: %8d , Kadin Kullanici Sayisi : %5d, Erkek Kullanici Sayisi :%5d%n \u001B[0m",
+        System.out.printf("\u001B[33m Toplam Kullanıcı Sayısı: %8d , Kadın Kullanıcı Sayısı : %5d, Erkek Kullanıcı Sayısı :%5d%n \u001B[0m",
                 toplamKullaniciSayisi, kadinMusteriSayisi(), erkekMusteriSayisi());
         System.out.println();
     }
 
     static void musteriEngelle(Scanner scan) {
 
-        System.out.println("Musteri engellemek istediginize emin misiniz?\n" +
-                "Evet ise 1'e\n" +
-                "Hayir ise 2'e basiniz" +
-                "Seciminiz : ");
-        int devamSecimi = MusteriMethodlar.intScanner(scan);
-        if (devamSecimi == 1) {
-            scan.nextLine();
-            System.out.print("Lutfen blocklamak istediginiz kullanici adini giriniz : ");
-            String engellenecekKullanici = scan.nextLine();
-            Musteri engellenecekHesap = MusteriMethodlar.musteriHesapBul(engellenecekKullanici);
-            if (engellenecekHesap != null) {
-                Musteri.getEngellenenKullanicilar().add(engellenecekHesap);
-            } else {
-                System.out.print("Engellemek istediginiz kullanici bulunamadi ! \n" +
-                        "Tekrar denemek ister misiniz?\n" +
-                        "Evet ise 1'e\n" +
-                        "Ana menuye donmek isterseniz 2'ye\n" +
-                        "Cikis yapmak isterseniz istediginiz bir tusa basiniz : ");
+        while (true) {
+            System.out.print("\nMüşteri Engellemek İstediğinize Emin Misiniz?\n" +
+                    "Evet ise 1'e\n" +
+                    "Hayır İse Herhangi Bir Rakama Basınız. " +
+                    "Seçiminiz : ");
+            int devamSecimi = MusteriMethodlar.intScanner(scan);
+            if (devamSecimi == 1) {
+                scan.nextLine();
+                System.out.print("Lütfen Engellemek İstediğiniz Kullanıcı Adını Giriniz : ");
+                String engellenecekKullanici = scan.nextLine();
+                Musteri engellenecekHesap = MusteriMethodlar.musteriHesapBul(engellenecekKullanici);
+                if (engellenecekHesap != null) {
+                    Musteri.getEngellenenKullanicilar().add(engellenecekHesap);
+                    System.out.println("Kullanıcı Başarıyla Engellenmiştir.");
+                    Musteri.getTumKullanicilar().remove(engellenecekHesap);
+                    break;
 
-                int cikisSecim = MusteriMethodlar.intScanner(scan);
-
-                if (cikisSecim == 1) {
-                    musteriEngelle(scan);
-                } else if (cikisSecim == 2) {
-                    AnaSayfa.Application();
                 } else {
-                    System.exit(0);
+                    System.out.print("\nEngellemek İstediğiniz Kullanıcı Adı Bulunamadı ! \n" +
+                            "Tekrar Denemek İster misiniz? " +
+                            "Evet ise 1'e\n" +
+                            "Ana Menüye Dönmek İsterseniz Herhangi Bir Rakama Basınız : ");
+
+
+                    int cikisSecim = MusteriMethodlar.intScanner(scan);
+
+                    if (cikisSecim != 1) {
+                        break;
+                    }
                 }
+            } else {
+                break;
             }
         }
-
     }
 
     static int kadinMusteriSayisi() {
