@@ -15,12 +15,11 @@ public class Runner {
         UrunlerMethodlar.hayvanUrunleri();
         UrunlerMethodlar.tumKategoriler();
         YoneticiMethodlar.tumYoneticiler();
-
     }
 
     public static void main(String[] args) {
         UrunlerMethodlar.indirimiAktiflestir();
         AnaSayfa.Application();
-        //buraya
+
     }
 }

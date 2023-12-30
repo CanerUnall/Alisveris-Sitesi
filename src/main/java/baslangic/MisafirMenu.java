@@ -6,47 +6,40 @@ import java.util.Scanner;
 
 public class MisafirMenu {
     public static void misafirMenu() {
-        List<baslangic.Urunler> misafirSepet = new ArrayList<>();
-        List<baslangic.Urunler> misafirAlinanUrunGecmisi = new ArrayList<>();
+        List<Urunler> misafirSepet = new ArrayList<>();
+        List<Urunler> misafirAlinanUrunGecmisi = new ArrayList<>();
 
         Musteri misafirHesap = new Musteri(misafirSepet, misafirAlinanUrunGecmisi);
 
         Scanner scan = new Scanner(System.in);
         int secim;
         do {
-
-            System.out.println("xxx Sitesine Hosgeldiniz.\n" +
-                    "1. Ürünleri görüntüle\n" +
-                    "2. Alışveriş sepetini görüntüle\n"
+            System.out.print("\nSayın Misafir Kullanıcı Hoş Geldiniz. Keyifli Alışverişler Dileriz :-)\n" +
+                    "1. Ürünleri Görüntüle\n" +
+                    "2. Alışveriş Sepetini Görüntüle\n" +
+                    "3. İndirimli Ürünleri Görüntüle\n" +
+                    "4. Ana Menüye Dön\n" +
+                    "Seçiminizi Giriniz : "
             );
-            secim = scan.nextInt();
-
+            secim = MusteriMethodlar.intScanner(scan);
             switch (secim) {
                 case 1:
-
                     MusteriMethodlar.urunleriGoruntule(scan, misafirHesap);
-
                     break;
                 case 2:
                     MusteriMethodlar.sepetiGoruntule(scan, misafirHesap);
-
+                    break;
+                case 3:
+                    MusteriMethodlar.indirimliUrunleriGoruntule(scan, misafirHesap);
+                    break;
+                case 4:
+                    System.out.println("\u001B[31mAna Menüye Dönülüyor.\u001B[0m");
                     break;
                 default:
-                    System.out.println("Geçersiz bir seçim yaptınız. Lütfen geçerli bir seçim yapınız.");
+                    System.out.println("\u001B[31mGeçersiz Bir Seçim Yaptınız. Lütfen Lütfen Tekrar Deneyin.\u001B[0m");
                     break;
             }
 
-            System.out.println("Yeni bir işlem yapmak ister misiniz? (Evet ise 1, Hayır ise 2'yi seçiniz.)");
-
-            int devamMi = scan.nextInt();
-
-            if (devamMi != 1) {
-                break;
-            }
-
-        } while (true);
-
+        } while (secim!=4);
     }
-
-
 }

@@ -27,7 +27,7 @@ public class UrunlerMethodlar {
     static void indirimliFiyat(List<Urunler> kategori) {
 
         for (Urunler urun : kategori) {
-            urun.setUrunAdi(urun.getUrunAdi() + "\u001B[31m Indirim \u001B[0m");
+            urun.setUrunAdi(urun.getUrunAdi() + " *İndirim*");
             urun.setUrunFiyati(urun.getUrunFiyati() / 4 * 3);
 
         }

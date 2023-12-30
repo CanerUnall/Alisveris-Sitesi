@@ -9,12 +9,20 @@
         E. Çıkış yap
 
         A ---Yeni Hesap Aç
-                1. Kullanıcı adını, soyadını, cinsiyet ve yaşını girer./Kullanıcı 18 yaşından büyük olmalıdır.
-                2. Şifre belirler
-                3. Banka kartı bilgilerini girer/Banka kartı kendi adına olmalıdır.
-                4. Başlangıç bakiyesini belirler.
-                5. Kargo teslim adresi belirler.
-                Yeni bir hesap açılır./hesap acılınca otomatık gırıs yapsın.
+
+                1. Kullanıcı
+                       adını,
+                       soyadını,
+                       cinsiyet,
+                       yaşını,(18' den buyuk olmali)
+                       mail adresini,
+                       kargo adresini,
+                       banka karti bilgilerini(isim, numara, son kullanma tarihi ve guvenlik kodu),
+                       ilk bakiyesini
+                       girer.
+                2. Şifre belirler(sifre 8 haneden olusacak ve bir buyu bir de kucuk harf icermeli)
+
+        Yeni bir hesap açılır./hesap acılınca otomatık gırıs yapsın.
 
         B---Müşteri olarak Giriş Yap
 
@@ -24,24 +32,39 @@
                 2- Ürünleri sepete ekleyebilecek.
                 3- Ödeme en sonda sepetten devam edilerek yapılacak.
         2. Hesaba bakiye yükleme
+                Bonuslari site bakiyesine cevirebilir
                 Banka kartı aracılıgıyla hesaba bakiye yükleyebilecek
+                    Sistemdeki banka karti ile yukleme yapabilir
+                    Harici banka karti ile yukleme yapabilir (banka karti kendi adina olmalidir)
+                Yukleme yapıldıktan sonra müşteri bonus kazansın.
         3. Hesap bakiyesini nakite çevirme
-                Bir banka hesabına tüm bakiyesini gönderebilecek
+                Bir banka hesabına tüm bakiyesini gönderebilecek(banka karti kendi adina olmalidir)
         4. Alışveriş sepetini görüntüle
                 Alışveriş sepetine istedigi kadar ürün ekleyebilecek
                 Ödeme ekranına buradan gidecek. Ödemede 2 farklı secenek olacak.
                 Mevcut bakiye ile öde
                 Banka kartı ile öde
-                Ödeme yapıldıktan sonra müşteri bonus kazansın.
+                    Sisteme kayitli banka karti ile odeme yapabilir
+                    Harici banka karti ile odeme yapabilir (banka karti kendi adina olmalidir)
+
+                Odemeden sonra makbuz gosterilsin
         5. İndirimli ürünleri görüntüleyebilsin
                 Her hafta indirime giren bir kategori olsun ve burada sergilensinler.
+                Sepete ekleyebilir, daha sonra odeyebilir ve makbuzu gorur
         6. Hesap geçmişini görüntülesin
                 Bakiye yükleme geçmişi
                 Bakiye çekme geçmişi
                 Biriken bonuslar/Müsteri alışveriş yaptıkca bonus kazansın
                 Alınan ürünler geçmişi
+                Harcama gecmisi
         7. Hesap ayarları
+                Sifreyi degistirebilir
+                Tel no degistirebilir
+                Mail adresini degistirebilir
+                kargo adresini degistir
                 Hesabı komple sil
+
+            Her adimda sifre kontrolu yapilsin
 
         8. Çıkış Yap
 
@@ -49,6 +72,7 @@
                 1. Ürünleri görüntüle
                 2. Alışveriş sepetini görüntüle/ödemeye gecme kısmı burada gelsin
                         Kargo teslim adresini ödeme esnasında belirtmeli.
+                3. Indirimli urunleri harici goruntuleyebilir
 
         D---Yönetici Girişi
         Yonetici girisinde projeye katılan arkadaslar yönetici sayılacak ve
@@ -60,5 +84,3 @@
         5. Müsteri istatistiklerini görüntüle
         6. Müsteri Engelleme
         7. Çıkış seçeneği*/
-
-
